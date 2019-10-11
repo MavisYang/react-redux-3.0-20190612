@@ -1,68 +1,110 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## 搭建的react+redux+router项目
 
-In the project directory, you can run:
+### 项目记录
+1. 左侧和右侧都有导航条
+2. 熟练应用redux
 
-### `npm start`
+**2019.10.11**
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Redux应用
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+详见`/components/TestDemo/TodoList`
 
-### `npm test`
+**Redux三要素：（个人理解）**
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Action：存储函数方法 
+- Store:存储数据的仓库
+- Reducer:数据处理仓库,必须是纯函数
 
-### `npm run build`
+技巧：
+1. 把Action Types 单度写入一个文件 `/actions/actionTypes.js`
+```$xslt
+actions.js 引入 import * as types from './actionTypes.js'
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+reducer.js  引入import {TODO_INIT, TODO_ADD} from '../actions/actionTypes.js'
+```
+2. 编写actionCreators.js文件 `/actions/index.js`
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+**通过store.getState()获取存储store数据**
 
-### `npm run eject`
+**通过dispatch添加store数据**
+```
+store.dispatch({
+    type:'USERINFO_INIT',
+    data:UserInfoData.resultContent
+})
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```
+但深层的组件中一般不直接使用这两个方法。
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+**只有store能改变自己的内容，Reducer不能改变**
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+>Reudcer只是返回了更改的数据，但是并没有更改store中的数据，store拿到了Reducer的数据，自己对自己进行了更新。
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+**Reducer必须是纯函数**
 
-## Learn More
+> 它的返回结果，是完全由传入的参数state和action决定的，这就是一个纯函数
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### 拆分UI组件
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+>分工合作，一人写样式，一人写逻辑。
 
-### Code Splitting
+### 无状态组件
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+>直接收传入的props值，不做逻辑处理
 
-### Analyzing the Bundle Size
+### 利用easy-mock创建模拟数据
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+>地址：https://www.easy-mock.com/mock/5cfcce489dc7c36bd6da2c99/xiaojiejie/getList
 
-### Making a Progressive Web App
+### Redux-thunk中间件
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+>在实际工作中你可以使用中间件来进行日志记录、创建崩溃报告，调用异步接口或者路由。
 
-### Advanced Configuration
+>Redux-thunk是对Redux中dispatch的加强。
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
 
-### Deployment
+**配置Redux-thunk组件**
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+1.引入applyMiddleware,如果你要使用中间件，就必须在redux中引入applyMiddleware.
+2.引入redux-thunk库
+3.直接把thunk放到createStore里的第二个参数就可以了
 
-### `npm run build` fails to minify
+### 报错
+1.Invariant failed: You should not use <Link> outside a <Router>
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+```$xslt
+ "antd": "^3.23.6",
+    "axios": "^0.19.0",
+    "connected-react-router": "^6.5.2",
+    "history": "^4.10.1",
+    "prop-types": "^15.7.2",
+    "react": "^16.10.2",
+    "react-dom": "^16.8.6",
+    "react-redux": "^7.1.1",
+    "react-router": "^5.1.2",
+    "react-router-dom": "^5.0.1",
+    "react-scripts": "3.0.1",
+    "redux": "^4.0.4",
+    "redux-thunk": "^2.3.0"
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

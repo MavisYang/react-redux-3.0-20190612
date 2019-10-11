@@ -1,0 +1,47 @@
+.public-input {
+  display: flex;
+  align-items: center;
+  font-family: "PingFang SC";
+  font-size: 15px;
+  font-weight: 500;
+  color: #344658;
+}
+.public-input .label {
+  margin-right: 4px;
+}
+.public-input .input {
+  background: #FFFFFF;
+  border: 1px solid #D4D7DE;
+  border-radius: 4px;
+  width: 300px;
+  height: 36px;
+  line-height: 34px;
+  text-indent: 16px;
+  font-family: "PingFang SC";
+  font-size: 15px;
+  font-weight: 500;
+  color: #344658;
+}
+.public-input .input:hover {
+  border: 1px solid #4173FF;
+}
+.public-input .input:focus {
+  border: 1px solid #4173FF;
+}
+.public-input .input::-webkit-input-placeholder {
+  color: #B9BCC5;
+}
+.public-input .input.disabled {
+  background: #F7F8F9;
+  border: 1px solid #D4D7DE;
+  color: #B9BCC5;
+  cursor: no-drop;
+}
+.public-input .input.disabled:hover {
+  border: 1px solid #D4D7DE;
+}
+.public-input .input.disabled:focus {
+  border: 1px solid #D4D7DE;
+}
+
+/*# sourceMappingURL=index.css.map */

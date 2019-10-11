@@ -1,0 +1,112 @@
+
+@import "styles/public.scss";
+.mainLayout {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-width: 1280px;
+  display: flex;
+  flex-wrap: wrap;
+  font-family: "PingFang SC";
+  font-size: 15px;
+  font-weight: 400;
+  color: #272E42;
+}
+
+.layoutHeader{
+  height: 48px;
+  width: 100%;
+  //background: #4173FF;
+  border-bottom: 1px solid #4173FF;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  .left{
+    width: 168px;
+    height: 100%;
+    flex: none;
+    @extend %flex_center;
+  }
+  .center{
+    flex: auto;
+    .menu{
+      display: inline-block;
+      width: 88px;
+      height: 48px;
+      line-height: 48px;
+      @include fontSize(16,400);
+      cursor: pointer;
+      text-align: center;
+      &:hover,&.active{
+        color: #235AF2;
+      }
+    }
+    .active{
+      color:  #235AF2;
+    }
+  }
+  .drop_out{
+    margin-left: 20px;
+    margin-right: 20px;
+    cursor: pointer;
+    &:hover{
+      color: #235AF2;
+    }
+  }
+
+}
+
+.layoutSideNavi {
+  width: 168px;
+  height: calc(100% - 48px);
+  background:rgba(250,250,250,1);
+  overflow: auto;
+  .menuHeader {
+    @include fontSize(13, 400);
+    color: #B9BCC5;
+    height: 68px;
+    line-height: 68px;
+    padding-left: 24px;
+  }
+  .menu {
+    display: flex;
+    align-items: center;
+    width: 168px;
+    height: 40px;
+    padding-left: 46px;
+    color: #5E6576;
+    cursor: pointer;
+    margin: 12px 0;
+    &:hover{
+      color:#3D6EFF;
+    }
+  }
+
+  .active {
+    background:rgba(236,241,255,1);
+    color: #3D6EFF;
+    border-left: 4px solid #3D6EFF;
+    transition: all 0.2s ease-in-out;
+    box-shadow: -15px 0px 10px -15px #D4D7DE inset;
+    padding-left: 42px;
+  }
+
+  .icon-menu {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    @extend %iconPlV3;
+    margin-right: 5px;
+  }
+
+}
+
+
+
+.layoutContent {
+  width: calc(100% - 168px);
+  height: calc(100% - 48px);
+  position: relative;
+  background:#fff;
+  box-shadow:0px 10px 10px 0px rgba(212,215,222,1);
+}
