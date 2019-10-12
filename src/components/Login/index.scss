@@ -1,0 +1,23 @@
+.login-containter{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 150px;
+
+  .ant-input-affix-wrapper{
+    width: 280px;
+    margin-bottom: 20px;
+  }
+
+  .login-form-button{
+    background-color: #40a9ff;
+    border-color: #40a9ff;
+    width: 280px;
+    &.active{
+      background-color: #1890ff;
+      border-color: #1890ff;
+    }
+  }
+
+}

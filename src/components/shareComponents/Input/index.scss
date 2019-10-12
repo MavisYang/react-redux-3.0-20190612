@@ -1,0 +1,51 @@
+@import '../../../styles/public.scss';
+
+.public-input {
+  display: flex;
+  align-items: center;
+  @include fontSize(15, 500);
+  color: #344658;
+
+  .label {
+    margin-right: 4px;
+  }
+
+  .input {
+    background: #FFFFFF;
+    border: 1px solid #D4D7DE;
+    border-radius: 4px;
+    width: 300px;
+    height: 36px;
+    line-height: 34px;
+    text-indent: 16px;
+    @include fontSize(15, 500);
+    color: #344658;
+
+    &:hover {
+      border: 1px solid #4173FF;
+    }
+
+    &:focus {
+      border: 1px solid #4173FF;
+    }
+
+    &::-webkit-input-placeholder {
+      color: #B9BCC5;
+    }
+
+    &.disabled {
+      background: #F7F8F9;
+      border: 1px solid #D4D7DE;
+      color: #B9BCC5;
+      cursor: no-drop;
+
+      &:hover {
+        border: 1px solid #D4D7DE;
+      }
+
+      &:focus {
+        border: 1px solid #D4D7DE;
+      }
+    }
+  }
+}
