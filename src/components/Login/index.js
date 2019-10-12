@@ -1,6 +1,6 @@
 import React,{Component} from "react";
 import { Icon, Input, Button } from 'antd'
-import {Link} from "react-router-dom";
+import {Link,Redirect} from "react-router-dom";
 import './index.scss'
 
 export default class Login extends Component{
@@ -52,8 +52,8 @@ export default class Login extends Component{
                 >
                     Log in
                 </Button>
-                <Link to={'/v2/tdscope'}>
-                    <span>go to login</span>
+                <Link to={'/app'} >
+                    <span>Link go to </span>
                 </Link>
             </div>
 

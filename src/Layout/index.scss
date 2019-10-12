@@ -35,6 +35,7 @@
       height: 48px;
       line-height: 48px;
       @include fontSize(16,400);
+      color: #272E42;
       cursor: pointer;
       text-align: center;
       &:hover,&.active{
@@ -49,6 +50,7 @@
     margin-left: 20px;
     margin-right: 20px;
     cursor: pointer;
+    color: #272E42;
     &:hover{
       color: #235AF2;
     }

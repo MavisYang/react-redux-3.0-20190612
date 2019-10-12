@@ -1,7 +1,7 @@
 import React,{Component,Fragment} from "react";
 import {Link} from "react-router-dom";
 import './index.scss'
-const Header = ({actions,location,naviMetaData,userInfo})=>{
+const Header = ({location,naviMetaData,userInfo})=>{
     return(
         <div className='layoutHeader'>
             <div className="left">
@@ -10,9 +10,9 @@ const Header = ({actions,location,naviMetaData,userInfo})=>{
             <div className="center">
                 {
                     naviMetaData.naviList.map((item,index)=>{
-                        return <span key={item.code} onClick={()=>{actions.goTo(item.target)}} className={location.pathname.includes(item.target)?'menu active':'menu'}>{item.name}</span>
-
-                        // return <Link to={item.target} key={item.code}> {item.name}</Link>
+                        return <Link to={item.target} key={item.code}  className={location.pathname.includes(item.target)?'menu active':'menu'}>
+                            {item.name}
+                        </Link>
 
                     })
                 }
@@ -20,7 +20,7 @@ const Header = ({actions,location,naviMetaData,userInfo})=>{
             <div className="right">
                <Fragment>
                    <span>{userInfo.info.userinfo.loginName}</span>
-                   <span className='drop_out' onClick={()=>{actions.goTo('/login')}}>退出</span>
+                   <Link className='drop_out' to='/login'>退出</Link>
                </Fragment>
             </div>
         </div>
@@ -35,7 +35,7 @@ const judgeByCodeFunc = ()=> {//验证没有在NaviData中的列表
     }
 }
 
-const SideNavi=({actions,location,naviMetaData,userInfo})=>{
+const SideNavi=({location,naviMetaData,userInfo})=>{
     let subMenu = naviMetaData.naviList.find(v => location.pathname.includes(v.target))
     return(
         <div className='layoutSideNavi'>
@@ -45,8 +45,9 @@ const SideNavi=({actions,location,naviMetaData,userInfo})=>{
                     subMenu&&subMenu.children.map((item,index)=>{
                         return  <Fragment key={item.code} >
                             <span className={`icon-menu ${routeMapClass[item.code]}`}/>
-                            <span onClick={()=>{actions.goTo(item.target)}}
-                                  className={location.pathname.includes(item.target)?'menu active':'menu'}>{item.name}</span>
+                            <Link className={location.pathname.includes(item.target)?'menu active':'menu'} to={item.target}>
+                                {item.name}
+                            </Link>
                         </Fragment>
 
                     })
@@ -63,8 +64,8 @@ export default class MainLayout extends Component{
         const {actions,location,naviMetaData,userInfo} = this.props
         return(
             <Fragment>
-                <Header naviMetaData={naviMetaData} userInfo={userInfo} actions={actions} location={location}/>
-                <SideNavi naviMetaData={naviMetaData} userInfo={userInfo} actions={actions} location={location}/>
+                <Header naviMetaData={naviMetaData} userInfo={userInfo} location={location}/>
+                <SideNavi naviMetaData={naviMetaData} userInfo={userInfo} location={location}/>
                 <div className="layoutContent">
                     {
                         this.props.children

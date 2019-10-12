@@ -1,5 +1,6 @@
-import React, {Component,Fragment} from "react";
-import {Input, Button, List} from 'antd'
+import React, {Component} from "react";
+import TodoListUi from "./TodoListUi";
+import HooksTodo from "../HooksTodo";
 import './index.scss'
 
 export default class TodoList extends Component {
@@ -27,6 +28,7 @@ export default class TodoList extends Component {
     }
 
     keyupHandle = (e) => {
+        console.log('keyupHandle')
         if (e.keyCode === 13) {
             this.addList()
         }
@@ -81,67 +83,82 @@ export default class TodoList extends Component {
 
     render() {
         const {todosReducer} = this.props
-        const {editItem} = this.state
+        const {editItem,inputValue} = this.state
         // console.log(todosReducer,'todosReducer')
         return (
             <div className={'todo_list_containter'}>
                 <h3>todoList(Redux应用)</h3>
-                <div className='tl_input'>
-                    <div className="add">
-                        <Input placeholder={'输入'} className='add_ipt' value={this.state.inputValue}
-                               onChange={this.onChange} onKeyUp={this.keyupHandle}/>
-                        <Button type="primary" onClick={this.addList}>增加</Button>
-                    </div>
-                    <Input.Search
-                        className="search"
-                        placeholder="input search text"
-                        onSearch={this.onSearch}
-                        style={{width: 280}}
-                        enterButton
-                        allowClear
-
-                    />
-                </div>
-                <List
-                    size="small"
-                    bordered
-                    dataSource={todosReducer.todoList}
-                    renderItem={(item,index) => <ToDoItem item={item}
-                                                  deleteItem={() => this.deleteItem(item.id,index)}
-                                                  editItem={editItem}
-                                                  handleEdit={this.handleEdit}
-                                                  confrimEdit={this.confrimEdit}
-                                                  editOnChange={this.editOnChange}
-                    />}
+                <TodoListUi todosReducer={todosReducer}
+                            inputValue={inputValue}
+                            onChange={this.onChange}
+                            onKeyUp={this.keyupHandle}
+                            addList={this.addList}
+                            onSearch={this.onSearch}
+                            deleteItem={this.deleteItem}
+                            editItem={editItem}
+                            handleEdit={this.handleEdit}
+                            confrimEdit={this.confrimEdit}
+                            editOnChange={this.editOnChange}
                 />
 
+                <HooksTodo todosReducer={todosReducer}/>
+                {/*
+                    <div className='tl_input'>
+                        <div className="add">
+                            <Input placeholder={'输入'} className='add_ipt' value={this.state.inputValue}
+                                   onChange={this.onChange} onKeyUp={this.keyupHandle}/>
+                            <Button type="primary" onClick={this.addList}>增加</Button>
+                        </div>
+                        <Input.Search
+                            className="search"
+                            placeholder="input search text"
+                            onSearch={this.onSearch}
+                            style={{width: 280}}
+                            enterButton
+                            allowClear
+
+                        />
+                    </div>
+                    <List
+                        size="small"
+                        bordered
+                        dataSource={todosReducer.todoList}
+                        renderItem={(item,index) => <ToDoItem item={item}
+                                                      deleteItem={() => this.deleteItem(item.id,index)}
+                                                      editItem={editItem}
+                                                      handleEdit={this.handleEdit}
+                                                      confrimEdit={this.confrimEdit}
+                                                      editOnChange={this.editOnChange}
+                        />}
+                    />
+                */}
             </div>
 
         )
     }
 }
 
-//无状态组件
-const ToDoItem = ({item, deleteItem,editItem,handleEdit,confrimEdit,editOnChange}) => {
-    return (
-        <List.Item>
-            <div>
-                {
-                    editItem.editStatus && editItem.editId === item.id
-                        ? <Fragment>
-                            <Input placeholder={'输入'} className='add_ipt' value={editItem.editValue}
-                                   onChange={(e) => {editOnChange(e)}}
-                            />
-                            <Button type="primary" onClick={confrimEdit}>确定修改</Button>
-                        </Fragment>
-                        : <Fragment>{item.value}</Fragment>
-                }
-            </div>
-            <div className='operate'>
-                <span className="operate_edit" onClick={()=>handleEdit(true,item)}>编辑</span>
-                <span className="operate_line">|</span>
-                <span className="operate_delete" onClick={deleteItem}>删除</span>
-            </div>
-        </List.Item>
-    )
-}
+// //无状态组件
+// const ToDoItem = ({item, deleteItem,editItem,handleEdit,confrimEdit,editOnChange}) => {
+//     return (
+//         <List.Item>
+//             <div>
+//                 {
+//                     editItem.editStatus && editItem.editId === item.id
+//                         ? <Fragment>
+//                             <Input placeholder={'输入'} className='add_ipt' value={editItem.editValue}
+//                                    onChange={(e) => {editOnChange(e)}}
+//                             />
+//                             <Button type="primary" onClick={confrimEdit}>确定修改</Button>
+//                         </Fragment>
+//                         : <Fragment>{item.value}</Fragment>
+//                 }
+//             </div>
+//             <div className='operate'>
+//                 <span className="operate_edit" onClick={()=>handleEdit(true,item)}>编辑</span>
+//                 <span className="operate_line">|</span>
+//                 <span className="operate_delete" onClick={deleteItem}>删除</span>
+//             </div>
+//         </List.Item>
+//     )
+// }

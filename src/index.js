@@ -4,7 +4,7 @@ import * as serviceWorker from './serviceWorker';
 import configureStore,{history} from "./store";
 import {Provider} from "react-redux";
 import {ConnectedRouter} from "connected-react-router";
-import {Switch,Route} from "react-router";
+import {Switch,Route,Redirect} from "react-router";
 import './index.scss';
 import 'antd/dist/antd.min.css';
 
@@ -40,8 +40,8 @@ const MainScope = ({location, history}) => {
     return (
         <div className='mainLayout'>
             <Switch>
-                <Route exact path={'/v2/tdscope'} component={TestScope}/>
-                <Route path={'/v2/app'} component={App}/>
+                <Route path={'/v2/tdscope'} component={TestScope}/>
+
             </Switch>
         </div>
     )
@@ -52,7 +52,9 @@ ReactDOM.render(
             <Suspense fallback={Loading}>
                 <Switch>
                     <Route exact path={'/login'} component={LoginScope}/>
+                    <Route path={'/app'} component={App}/>
                     <Route path={'/'} component={MainScope}/>
+
                 </Switch>
             </Suspense>
         </ConnectedRouter>

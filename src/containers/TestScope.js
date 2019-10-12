@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types'
 import {bindActionCreators} from 'redux'
-import {connect} from 'react-redux'
+import {connect} from 'react-redux';//引入连接器
 import * as TodoActions from '../actions'
 import TDScope from "../components/SaasScope/TDScope";
 import MainLayout from '../Layout'

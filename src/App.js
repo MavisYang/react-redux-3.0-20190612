@@ -1,10 +1,8 @@
 import React from 'react';
-import Hooks from './components/Hooks'
-function App() { 
+function App() {
   return (
     <div className="App">
       <header className="App-header">
-        {/*<Hooks/>*/}
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>

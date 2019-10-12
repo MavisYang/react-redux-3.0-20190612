@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import SelectFriend from './SelectFriend'
-import Todos from '../Todos'
+import Todos from '../TestDemo/HooksTodo'
 import './index.scss'
 
 function SetCount(props) {
