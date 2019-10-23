@@ -28,28 +28,26 @@ const Header = ({location,naviMetaData,userInfo})=>{
 }
 
 const judgeByCodeFunc = ()=> {//验证没有在NaviData中的列表
-    if(window.location.pathname.includes('/v2/gmscope/wmscope/mmlscope')){
-        return 'wmscope'
-    }else if(window.location.pathname.includes('/v2/system/build')||window.location.pathname.includes('/v2/system/wxmanage')){
+    if(window.location.pathname.includes('/v2/syscope/iqscope')){
+        return 'iqscope'
+    } else if(window.location.pathname.includes('/v2/system/build')||window.location.pathname.includes('/v2/system/wxmanage')){
         return 'sysscope'
     }
 }
 
 const SideNavi=({location,naviMetaData,userInfo})=>{
     let subMenu = naviMetaData.naviList.find(v => location.pathname.includes(v.target))
+    let judgeByCode = judgeByCodeFunc()
     return(
         <div className='layoutSideNavi'>
             <div className="menuHeader">{subMenu?subMenu.name:''}</div>
             <div className="menuList">
                 {
                     subMenu&&subMenu.children.map((item,index)=>{
-                        return  <Fragment key={item.code} >
-                            <span className={`icon-menu ${routeMapClass[item.code]}`}/>
-                            <Link className={location.pathname.includes(item.target)?'menu active':'menu'} to={item.target}>
-                                {item.name}
+                        return <Link  key={item.code}  className={(judgeByCode?judgeByCode===item.code.toLowerCase():location.pathname.includes(item.target))?'menu active':'menu'} to={item.target}>
+                                <span className={`icon-menu ${routeMapClass[item.code]}`}/>
+                                <span> {item.name}</span>
                             </Link>
-                        </Fragment>
-
                     })
                 }
             </div>
@@ -61,7 +59,7 @@ const SideNavi=({location,naviMetaData,userInfo})=>{
 
 export default class MainLayout extends Component{
     render() {
-        const {actions,location,naviMetaData,userInfo} = this.props
+        const {location,naviMetaData,userInfo} = this.props
         return(
             <Fragment>
                 <Header naviMetaData={naviMetaData} userInfo={userInfo} location={location}/>
@@ -75,6 +73,7 @@ export default class MainLayout extends Component{
         )
     }
 }
+
 
 const routeMapClass = {
     'TDScope':'tdScope',

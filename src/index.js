@@ -17,7 +17,9 @@ const Loading = <PageLoading/>
 const App = lazy(() => import('./App'))
 const LoginScope = lazy(() => import('./containers/LoginScope'))
 const TestScope = lazy(() => import('./containers/TestScope'))
-
+const AntdScope = lazy(() => import('./containers/AntdScope'))
+const StudyScope = lazy(() => import('./containers/StudyScope'))
+const IQScope = lazy(() => import('./components/SaasScope/IQScope'))
 const MainScope = ({location, history}) => {
     //存储store数据
     const reduxStore = store.getState()
@@ -41,6 +43,11 @@ const MainScope = ({location, history}) => {
         <div className='mainLayout'>
             <Switch>
                 <Route path={'/v2/tdscope'} component={TestScope}/>
+                <Route path={'/v2/antd'} component={AntdScope}/>
+
+
+                <Route path={'/v2/syscope/iqscope'} component={IQScope}/>
+                <Route path={'/v2/syscope'} component={StudyScope}/>
 
             </Switch>
         </div>

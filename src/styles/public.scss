@@ -1,3 +1,5 @@
+@import "animate.scss";
+
 $red: #F75A5A;
 $red-light: #FDE5E5;
 $blue: #4173FF;
@@ -7,14 +9,15 @@ $gray: #B5BDC6;
 $gray-bg: #f0f1f3;
 $img-path: '';
 
-
-
 // icon-v3
 %iconPlV3 {
   background: url(#{$img-path}/images/iconV3_1/icon-pl-v3.png) no-repeat;
   background-size: 707px 272px;
 }
-
+%iconGmV3 {
+  background: url(#{$img-path}/images/iconV3_1/icon-gm-v3.png) no-repeat;
+  background-size: 705px 239px;
+}
 
 %verticalCenter {
   position: absolute;

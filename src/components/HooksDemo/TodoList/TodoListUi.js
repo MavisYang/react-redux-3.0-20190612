@@ -1,5 +1,5 @@
 import React, {Fragment} from "react";
-import {Button, Input, List} from "antd";
+import {Button, Input, List,Popconfirm} from "antd";
 
 //无状态组件，直接收传入的props值，不做逻辑处理
 //ui和逻辑分离
@@ -17,6 +17,7 @@ const TodoListUi = (props) => {
                     className="search"
                     placeholder="input search text"
                     onSearch={props.onSearch}
+                    onChange={props.searchOnchange}
                     style={{width: 280}}
                     enterButton
                     allowClear
@@ -64,7 +65,16 @@ const ToDoItem = ({item, deleteItem, editItem, handleEdit, confrimEdit, editOnCh
             <div className='operate'>
                 <span className="operate_edit" onClick={() => handleEdit(true, item)}>编辑</span>
                 <span className="operate_line">|</span>
-                <span className="operate_delete" onClick={deleteItem}>删除</span>
+                <Popconfirm
+                    placement="topRight"
+                    title={'确定删除该list吗？'}
+                    onConfirm={deleteItem}
+                    okText="确定"
+                    cancelText="取消"
+                >
+                    <span className="operate_delete">删除</span>
+                </Popconfirm>
+
             </div>
         </List.Item>
     )

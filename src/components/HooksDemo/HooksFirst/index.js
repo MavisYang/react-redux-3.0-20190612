@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import SelectFriend from './SelectFriend'
-import Todos from '../TestDemo/HooksTodo'
+import Todos from '../HooksTodo'
 import './index.scss'
 
 function SetCount(props) {
@@ -21,13 +21,13 @@ function SetCount(props) {
 
   //3.
   const [todos,setTodos] = useState([
-    { text: 'Learn Hooks', id: '11ydam2' },
-    { text: 'Learn Hooks 2', id: '13' }
+    { text: 'Learn HooksFirst', id: '11ydam2' },
+    { text: 'Learn HooksFirst 2', id: '13' }
   ])
   function handleSetTodos(id) {
     let newTodos = []
     todos.map(old => newTodos.push(old))
-    newTodos.find(m => m.id === id).text = "Learn Hooks clicked"
+    newTodos.find(m => m.id === id).text = "Learn HooksFirst clicked"
     setTodos(newTodos);
   }
 

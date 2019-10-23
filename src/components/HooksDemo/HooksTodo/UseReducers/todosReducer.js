@@ -1,19 +1,13 @@
-import {TODO_INIT, TODO_ADD, TODO_DELETE, TODO_SEARCH, TODO_EDIT} from '../actions/actionTypes'
+import {TODO_ADD, TODO_DELETE, TODO_EDIT, TODO_INIT, TODO_SEARCH} from "../actions/actionsTypes";
 
-const initState = {//默认数据
-    initList: [],//用于清除搜索时
-    todoList: [
-        // {
-        //     id:'',
-        //     value:''
-        // }
-    ],
+const initialState={
+    todoList:[],
+    initList:[]
 }
 
-export default function todosReducer(state = initState, action) {//就是一个方法函数
-    // state: 是整个项目中需要管理的数据信息
-    // console.log( actions, 'actions.data')
-    switch (action.type) {//Reducer里只能接收state,不能改变state
+export function TodoReducer(state=initialState,action){
+    // console.log(action,'action')
+    switch (action.type) {
         case TODO_INIT:
             return {
                 ...state,
@@ -35,6 +29,8 @@ export default function todosReducer(state = initState, action) {//就是一个�
         case TODO_DELETE:
             return {
                 ...state,
+                // todoList: state.todoList.splice(action.index,1),//splice删除返回的是删除的数组
+                // initList: state.initList.splice(action.index,1),
                 todoList: state.todoList.filter(item => item.id !== action.id),
                 initList: state.initList.filter(item => item.id !== action.id)
             }

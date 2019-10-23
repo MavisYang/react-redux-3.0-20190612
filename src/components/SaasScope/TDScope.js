@@ -1,6 +1,7 @@
 import React,{Component,Fragment} from "react";
 import {Switch,Route} from "react-router";
-import TodoList from '../TestDemo/TodoList/index'
+import TodoHooksDemo from '../HooksDemo'
+import HooksDemo from '../HooksDemo/HooksTodo/HooksDemo'
 
 export default class TDScope extends Component{
 
@@ -9,8 +10,8 @@ export default class TDScope extends Component{
         return(
            <div className='scope_wrapper'>
                <Switch>
-                   <Route exact path={'/v2/tdscope/build/id:?/type:?'} render={props=><TodoList {...props} actions={actions}/>}/>
-                   <Route exact path={'/v2/tdscope'} render={props=><TodoList {...props} actions={actions} todosReducer={todosReducer}/>}/>
+                   <Route exact path={'/v2/tdscope'} render={props=><TodoHooksDemo {...props} actions={actions} todosReducer={todosReducer}/>}/>
+                   <Route path={'/v2/tdscope/hooks'} render={props=><HooksDemo {...props} actions={actions}/>}/>
                </Switch>
            </div>
         )

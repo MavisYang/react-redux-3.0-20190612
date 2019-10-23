@@ -1,0 +1,99 @@
+@import 'styles/public.scss';
+
+.msg-modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  text-align: center;
+  z-index: 999;
+
+  .msg-list {
+    position: absolute;
+    left: 50%;
+    top: 60px;
+    transform: translateX(-50%);
+    pointer-events: none;
+  }
+
+  .message {
+    height: 42px;
+    line-height: 42px;
+    border-radius: 4px;
+    font-family: PingFangSC;
+    font-weight: 400;
+    font-size: 15px;
+    color: #272E42;
+    text-align: left;
+    position: relative;
+    margin: 0 auto 20px;
+    padding: 0 16px 0 38px;
+  }
+
+  .msg-success {
+    background: #DDF4ED;
+    border: 1px solid #5BC9A4;
+  }
+
+  .msg-warn {
+    background: #FDF7F1;
+    border: 1px solid #F0B276;
+  }
+
+  .msg-error {
+    background: #FDEFF0;
+    border: 1px solid #F16272;
+  }
+
+  .msg-info {
+    background: #ECF1FF;
+    border: 1px solid #4173FF;
+  }
+
+  .icon-msg {
+    display: block;
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    left: 15px;
+    top: 12px;
+    @extend %iconGmV3;
+  }
+
+  .msg-success .icon-msg {
+    background-position: -424px -82px;
+  }
+
+  .msg-warn .icon-msg {
+    background-position: -462px -82px;
+  }
+
+  .msg-error .icon-msg {
+    background-position: -444px -82px;
+  }
+
+  .msg-info .icon-msg {
+    background-position: -482px -82px;
+  }
+
+  .msg-item-enter {
+    opacity: 0;
+  }
+
+  .msg-item-enter-active {
+    opacity: 1;
+    transition: all .2s ease-in-out;
+  }
+
+  .msg-item-exit {
+    opacity: 1;
+  }
+
+  .msg-item-exit-active {
+    height: 0;
+    opacity: 0;
+    overflow: hidden;
+    margin-bottom: 0px;
+    transition: all .2s ease-in-out;
+  }
+}
