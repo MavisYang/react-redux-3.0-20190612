@@ -55,6 +55,7 @@ $img-path: '';
   height: $h+px;
 }
 
+//文字几行超出省略
 @mixin multiTextHide($num) {
   display: -webkit-box;
   display: -moz-box;

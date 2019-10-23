@@ -2,9 +2,84 @@
 **2019/10/21**
 ## CSS技巧
 - [CSS 专业技巧](https://github.com/AllThingsSmitty/css-protips/tree/master/translations/zh-CN)
+- [提高幸福感的 9 个 CSS 技巧](https://mp.weixin.qq.com/s/id_n8SO4nNazzGK7H6BPyg)
 
 ### [animate.css](https://daneden.github.io/animate.css/)
 
+
+**2019.10.23**
+#### 非table 布局 重叠边框合并方法
+```css
+.item{
+ margin-right: -1px;
+}
+```
+#### 合理使用变量
+
+>变量定义的语法是： --； // *为变量名称。
+ 变量使用的语法是：var()；
+
+1. 无论是变量的定义和使用只能在声明块 {} 里面
+2. CSS 变量字符限制为： [0-9]、[a-zA-Z]、_、-、中文和韩文等。
+```
+:root {
+    --blue_color: #3388ff;
+    --main_bgcolor: #fafafa;
+    --font_size_12: 12px;
+    --font_size_14: 14px;
+    --color: 20px;
+}
+
+.div1{
+    background-color: var(--main_bgcolor);
+    font-size: var(--font_size_12);
+}
+```
+
+#### 使用伪类 + transform
+```
+.failTipContent {
+    font-size: 13px;
+    color: #fff;
+    background: #434A5F;
+    border-radius: 4px;
+    padding: 5px 9px;
+    word-break: break-all;
+    z-index: 9;
+
+    //向下伪类三角
+    &::after {
+        content: '';
+        width: 10px;
+        height: 10px;
+        background: #434A5F;
+        position: absolute;
+        bottom: -5px;
+        left: 18px;
+        transform: translateX(-50%) rotate(135deg);
+    }
+}
+```
+#### 从 html 元素继承 box-sizing
+
+```css
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+```
+>这样的好处在于他不会覆盖其他组件的 box-sizing 值，又无需为每一个元素重复设置 box-sizing:border-box;。
+
+#### 文字超出省略、文字两端对齐
+```css
+
+```
+
+
+**2019.10.21**
 ####   box-sizing
 ```css
 html {
@@ -143,7 +218,6 @@ a[href]:not([class]) {
     pointer-events: none;
 }
 ```
-
 
 
 
