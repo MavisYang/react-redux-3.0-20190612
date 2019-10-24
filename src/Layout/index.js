@@ -33,6 +33,7 @@ const judgeByCodeFunc = ()=> {//验证没有在NaviData中的列表
     } else if(window.location.pathname.includes('/v2/system/build')||window.location.pathname.includes('/v2/system/wxmanage')){
         return 'sysscope'
     }
+//    /v2/syscope/react
 }
 
 const SideNavi=({location,naviMetaData,userInfo})=>{
@@ -86,7 +87,6 @@ const routeMapClass = {
     'MMScope': 'mmscope',
     'GBScope': 'gbscope',
     'Dashboard': 'dashboard',
-    'TDScope': 'tdscope',
     'GDScope': 'gdscope',
     'HWScope': 'hwscope',
     'MLScope': 'mlscope',

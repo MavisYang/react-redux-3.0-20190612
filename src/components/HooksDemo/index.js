@@ -9,7 +9,7 @@ export default class HooksDemo extends Component{
     render() {
         const {actions,todosReducer} = this.props
         return(
-            <div className='hooks_containter'>
+            <div className='container'>
                 <TodoList actions={actions} todosReducer={todosReducer}/>
                 <HooksTodo actions={actions} todosReducer={todosReducer}/>
                 <DragAndDrop/>

@@ -130,14 +130,13 @@ export const NaviData = {
                 "code": "jcScope",
                 "name": "js/css",
                 "orderSeq": 1,
-                "target": "/v2/syscope",
+                "target": "/v2/syscope/jscss",
                 "handleRight": "HR_CUSTOMIZED_ROBOT;HR_TRIAL_GROUP",
                 "status": 1,
                 "parentId": "44bf0686-64b1-11e9-8723-f45c89c26dbf",
                 "selected": null,
                 "children": null
-            },
-                {
+            }, {
                 "id": "1a15960a-08bd-11e9-b215-4a0005ddfbf0",
                 "code": "IQscope",
                 "name": "面试题",
@@ -148,19 +147,19 @@ export const NaviData = {
                 "parentId": "34bf0686-64b1-11e9-8723-f45c89c26dbf",
                 "selected": null,
                 "children": null
+            }, {
+                "id": "104a905c-8751-11e9-9fc8-f45c89c26dbf",
+                "code": "react",
+                "name": "react",
+                "orderSeq": 3,
+                "target": "/v2/syscope/react",
+                "handleRight": "HR_CUSTOMIZED_ROBOT;HR_TRIAL_GROUP",
+                "status": 1,
+                "parentId": "14bf0686-64b1-11e9-8723-f45c89c26dbf",
+                "selected": null,
+                "children": null
             },
                 //{
-            //     "id": "004a905c-8751-11e9-9fc8-f45c89c26dbf",
-            //     "code": "GFmanage",
-            //     "name": "好友管理",
-            //     "orderSeq": 3,
-            //     "target": "/v2/gmscope/gfmanage",
-            //     "handleRight": "HR_CUSTOMIZED_ROBOT;HR_TRIAL_GROUP",
-            //     "status": 1,
-            //     "parentId": "44bf0686-64b1-11e9-8723-f45c89c26dbf",
-            //     "selected": null,
-            //     "children": null
-            // }, {
             //     "id": "0059ee4e-8751-11e9-9fc8-f45c89c26dbf",
             //     "code": "WMscope",
             //     "name": "微信号管理",

@@ -7,7 +7,7 @@ export default function SYScope(props){
     return(
         <div className='scope_wrapper'>
             <Switch>
-                <Route exact path={'/v2/syscope'} render={props=><StudyDemo {...props} actions={actions}/>}/>
+                <Route exact path={'/v2/syscope/jscss'} render={props=><StudyDemo {...props} actions={actions}/>}/>
             </Switch>
         </div>
     )
