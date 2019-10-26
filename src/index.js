@@ -21,7 +21,8 @@ const AntdScope = lazy(() => import('./containers/AntdScope'))
 const StudyScope = lazy(() => import('./containers/StudyScope'))
 const IQScope = lazy(() => import('./components/SaasScope/IQScope'))
 const ReactScope = lazy(() => import('./components/SaasScope/ReactScope'))
-
+const LodashScope =  lazy(() => import('./components/SaasScope/LodashScope'))
+const ShareScope =  lazy(() => import('./components/SaasScope/ShareScope'))
 
 const MainScope = ({location, history}) => {
     //存储store数据
@@ -49,9 +50,11 @@ const MainScope = ({location, history}) => {
                 <Route path={'/v2/antd'} component={AntdScope}/>
 
 
+                <Route path={'/v2/syscope/share'} component={ShareScope}/> {/*技术分享*/}
+                <Route path={'/v2/syscope/lodash'} component={LodashScope}/> {/*lodash*/}
                 <Route path={'/v2/syscope/react'} component={ReactScope}/> {/*react*/}
                 <Route path={'/v2/syscope/iqscope'} component={IQScope}/>{/*面试题*/}
-                <Route exact path={'/v2/syscope/jscss'} component={StudyScope}/>
+                <Route exact path={'/v2/syscope'} component={StudyScope}/>
 
             </Switch>
         </div>

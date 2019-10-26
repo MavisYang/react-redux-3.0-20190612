@@ -86,9 +86,13 @@ this.setState({
 ### 各种组件称呼
 - 受控组件：input,textarea,和select这类表单元素
 - 非受控组件：通过ref从DOM获取表单值
-- 高阶组件
+- 高阶组件（Higher-Order Components，简称HOC）：高阶组件就是一个函数，且该函数接受一个组件作为参数，并返回一个新的组件
+(connect 是一个返回高阶组件的高阶函数！)
+- 容器组件
 - UI组件：只展示样式
 - 逻辑层组件：做数据处理
+- [Web组件](https://www.reactjscn.com/docs/web-components.html):没懂，可能用的组件都是这个吧 
+
 
 ### React开发理念
 第一步：把 UI 划分出组件层级
@@ -146,6 +150,144 @@ const LI=({value})=>{
 }
 ```
 - 如果你想让类似 false、true、null 或 undefined 出现在输出中，你必须先把它转换成字符串`<div>My JavaScript variable is {String(myVariable)}.</div>`
+
+### Refs & DOM
+
+#### 何时使用 Refs
+- 处理焦点、文本选择或者媒体控制
+- 触发强制动画
+- 集成第三方DOM库
+
+>不要过度使用Refs
+为类组件添加 Ref,这种方法仅对 class 声明的 CustomTextInput 有效,
+不能在函数式组件上使用 ref 属性，因为它们没有实例;
+但是，你可以在函数式组件内部使用 ref，只要它指向一个 DOM 元素或者 class 组件：
+
+#### 性能优化
+1. shouldComponentUpdate(nextProps, nextState)
+```
+ shouldComponentUpdate(nextProps, nextState) {
+    if (this.props.color !== nextProps.color) {
+      return true;
+    }
+    if (this.state.count !== nextState.count) {
+      return true;
+    }
+    return false;
+  }
+```
+>shouldComponentUpdate只检查props.color和state.count的变化。
+如果这些值没有变化，组件就不会更新。
+当你的组件变得更加复杂时，你可以使用类似的模式来做一个“浅比较”，用来比较属性和值以判定是否需要更新组件。
+
+2. 想要实现代码而不污染原始对象，我们可以使用Object.assign方法和数组的[spread语法](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Spread_syntax)
+
+spread语法(展开语法)
+(1)函数调用：
+`myFunction(...iterableObj);`
+(2)字面量数组构造或字符串：
+`[...iterableObj, '4', ...'hello', 6];`
+(3)构造字面量对象时,进行克隆或者属性拷贝（ECMAScript 2018规范新增特性）：
+`let objClone = { ...obj };`
+
+3. 手动绑定this
+>对于使用 class 关键字创建的 React 组件，组件中的方法是不会自动绑定 this 的。
+类似地，通过 ES6 class 生成的实例，实例上的方法也不会绑定 this。
+因此，你需要在 constructor 中为方法手动添加 .bind(this)：
+
+ES6:通过构造函数可以不需要手动添加 .bind(this)
+
+### [Portals](https://www.reactjscn.com/docs/portals.html)
+>Portals 提供了一种很好的将子节点渲染到父组件以外的 DOM 节点的方式
+
+用于messages提示 ，详见`/shareComponents/Messages`
+
+
+### 捕捉错误的生命周期：componentDidCatch
+```js
+handleClick = () => {
+ try {
+   // Do something that could throw
+ } catch (error) {
+   this.setState({ error });
+ }
+}
+```
+
+## API
+
+### React Component
+
+>React.PureComponent 与 React.Component 几乎完全相同，但 React.PureComponent 通过prop和state的浅对比来实现 shouldComponentUpate()。
+>如果React组件的 render() 函数在给定相同的props和state下渲染为相同的结果，在某些场景下你可以使用 React.PureComponent 来提升性能。
+
+**2019.10.25**
+
+### 生命周期--`getDerivedStateFromProps`(`nextProps和prevState相比较`)
+- 组件实例化后和接受新属性时将会调用`getDerivedStateFromProps`。它应该返回一个对象来更新状态，或者返回null来表明新属性不需要更新任何状态。
+- 注意，如果父组件导致了组件的重新渲染，即使属性没有更新，这一方法也会被调用。如果你只想处理变化，你可能想去比较新旧值。
+- 调用this.setState() 通常不会触发 getDerivedStateFromProps()。
+```
+static getDerivedStateFromProps(nextProps, prevState) {
+    if (prevState.wxList.length == 0 && nextProps.wxList&&nextProps.wxList.length>0) {
+        return {wxList: nextProps.wxList}
+    }
+    return null
+  }
+```
+### 生命周期--`shouldComponentUpdate`(`nextProps和this.props相比较`)
+- 当前，若shouldComponentUpdate()返回false，而后UNSAFE_componentWillUpdate()，render()， 和 componentDidUpdate()将不会被调用。
+```
+ shouldComponentUpdate(nextProps,nextState){
+    if(nextProps.targetWxUser.userId!=this.props.targetWxUser.userId){
+        this.setState({
+            selectId: ''
+        })
+    }
+    return true
+}
+```
+### 生命周期--`getSnapshotBeforeUpdate`
+- getSnapshotBeforeUpdate()在最新的渲染输出提交给DOM前将会立即调用。
+它让你的组件能在当前的值可能要改变前获得它们。这一生命周期返回的任何值将会 作为参数被传递给componentDidUpdate()。
+
+
+### dangerouslySetInnerHTML函数
+>dangerouslySetInnerHTML是React提供的替换浏览器DOM中的innerHTML接口的一个函数。
+必须是一个闭合标签，不能有children
+```
+<div dangerouslySetInnerHTML={{__html:'First &middot; Second'}}/>
+```
+### onWheel事件
+- onwheel 在鼠标滚轮滚动的时候被触发：因为滚轮可以控制页面的滚动，所以在使用滚轮时，onwheel事件先被触发，滚动条滚动，接着是onscroll事件
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

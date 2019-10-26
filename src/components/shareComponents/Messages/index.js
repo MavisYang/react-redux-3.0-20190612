@@ -76,7 +76,7 @@ export default class Messages extends Component {
         window.removeEventListener('message',this.onShow)
     }
     onShow = (event) => {
-        console.log(event,'event')
+        // console.log(event,'event')
         if(event.vals){
             let {code,txt,timer} = event.vals
             let newMsg = {
@@ -93,7 +93,7 @@ export default class Messages extends Component {
 
     onHide = (msgId) =>{
         this.setState({
-            messageList: this.state.messageList.filter(v => v.msgId!=msgId)
+            messageList: this.state.messageList.filter(v => v.msgId!== msgId)
         })
     }
     render(){

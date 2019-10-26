@@ -1,13 +1,5 @@
-import React, {
-    forwardRef,
-    Fragment, useCallback,
-    useEffect,
-    useImperativeHandle,
-    useLayoutEffect,
-    useMemo,
-    useRef,
-    useState
-} from "react";
+import React, {forwardRef, Fragment, useCallback,
+    useEffect, useImperativeHandle, useLayoutEffect, useMemo, useRef, useState} from "react";
 import {Button,Input} from "antd";
 
 function FatherComponent() {
@@ -64,8 +56,8 @@ function ChildrenComponent({name,children}) {
         return name + '来了'
     }
 
-    //5：useMemo
-    const funcConst = useMemo(()=> handleFunc(name),[name])
+    //5：useMemo:只要使用useMemo，然后给她传递第二个参数，参数匹配成功，才会执行
+    const funcConst = useMemo(()=> handleFunc(name), [name])
 
 
     return(
@@ -80,6 +72,7 @@ function MeasureExample() {
     const [height, setHeight] = useState(0);
 
     const measuredRef = useCallback(node => {
+        console.log(node,'node')// <h4>Hello, world</h4>
         if (node !== null) {
             setHeight(node.getBoundingClientRect().height);
         }

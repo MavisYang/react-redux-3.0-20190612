@@ -448,13 +448,18 @@ const [count,setCount] = useReducer((state,action)=>{
 
 >使用function的形式来声明组件，失去了shouldCompnentUpdate（在组件更新之前）这个生命周期，也就是说我们没有办法通过组件更新前条件来决定组件是否更新。
 >而且在函数组件中，也不再区分mount和update两个状态，这意味着函数组件的每一次调用都会执行内部的所有逻辑，就带来了非常大的性能损耗。
->useMemo和useCallback都是解决上述性能问题的，这节课先学习useMemo.
+>useMemo和useCallback都是解决上述性能问题的
 
 **useMemo 优化性能: 只要使用useMemo，然后给她传递第二个参数，参数匹配成功，才会执行。**
 
 ```js
  const funcConst = useMemo(()=> handleFunc(name),[name])
 ```
+
+### useCallback
+>useCallback(fn, inputs) is equivalent to useMemo(() => fn, inputs).
+
+
 ### useRef获取DOM元素和保存变量
 
 1. 用useRef获取React JSX中的DOM元素，获取后你就可以控制DOM的任何东西了。但是一般不建议这样来作，React界面的变化可以通过状态来控制。

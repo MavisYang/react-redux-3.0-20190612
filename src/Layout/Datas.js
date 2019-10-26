@@ -130,7 +130,7 @@ export const NaviData = {
                 "code": "jcScope",
                 "name": "js/css",
                 "orderSeq": 1,
-                "target": "/v2/syscope/jscss",
+                "target": "/v2/syscope",
                 "handleRight": "HR_CUSTOMIZED_ROBOT;HR_TRIAL_GROUP",
                 "status": 1,
                 "parentId": "44bf0686-64b1-11e9-8723-f45c89c26dbf",
@@ -159,29 +159,31 @@ export const NaviData = {
                 "selected": null,
                 "children": null
             },
+                {
+                "id": "0059ee4e-8751-11e9-9fc8-f45c89c26dbf",
+                "code": "Lodash",
+                "name": "Lodash",
+                "orderSeq": 4,
+                "target": "/v2/syscope/lodash",
+                "handleRight": "HR_CUSTOMIZED_ROBOT;HR_TRIAL_GROUP",
+                "status": 1,
+                "parentId": "44bf0686-64b1-11e9-8723-f45c89c26dbf",
+                "selected": null,
+                "children": null
+            },
+                {
+                "id": "44cb530a-64b1-11e9-8723-f45c89c26dbf",
+                "code": "shareTech",
+                "name": "技术分享",
+                "orderSeq": 5,
+                "target": "/v2/syscope/share",
+                "handleRight": "HR_CUSTOMIZED_ROBOT;HR_TRIAL_GROUP",
+                "status": 1,
+                "parentId": "44bf0686-64b1-11e9-8723-f45c89c26dbf",
+                "selected": null,
+                "children": null
+            },
                 //{
-            //     "id": "0059ee4e-8751-11e9-9fc8-f45c89c26dbf",
-            //     "code": "WMscope",
-            //     "name": "微信号管理",
-            //     "orderSeq": 4,
-            //     "target": "/v2/gmscope/wmscope",
-            //     "handleRight": "HR_CUSTOMIZED_ROBOT;HR_TRIAL_GROUP",
-            //     "status": 1,
-            //     "parentId": "44bf0686-64b1-11e9-8723-f45c89c26dbf",
-            //     "selected": null,
-            //     "children": null
-            // }, {
-            //     "id": "44cb530a-64b1-11e9-8723-f45c89c26dbf",
-            //     "code": "Welcome",
-            //     "name": "自动欢迎",
-            //     "orderSeq": 5,
-            //     "target": "/v2/gmscope/welcome",
-            //     "handleRight": "HR_CUSTOMIZED_ROBOT;HR_TRIAL_GROUP",
-            //     "status": 1,
-            //     "parentId": "44bf0686-64b1-11e9-8723-f45c89c26dbf",
-            //     "selected": null,
-            //     "children": null
-            // }, {
             //     "id": "95e5b7e4-2370-11e9-954e-f45c89c26dbf",
             //     "code": "ARScope",
             //     "name": "自动回复",

@@ -82,6 +82,7 @@ const TestJs = ()=>{
             {id: 7, parent_id: 6, sort: 0, name: '菜单2-1'},
 
         ];
+        //递归算法
         const nest = (items, id = null, link = 'parent_id') =>
             items
                 .filter(item => item[link] === id)
@@ -90,7 +91,7 @@ const TestJs = ()=>{
 
         const nestedComments = nest(comments); // [{ id: 1, parent_id: null, children: [...] }]
         setNests(nestedComments)
-        console.log(nestedComments,'nestedComments==')
+        // console.log(nestedComments,'nestedComments==')
 
         //.byteSize：返回字符串的字节长度
         const byteSize = str =>new Blob([str]).size
@@ -136,8 +137,9 @@ const TestJs = ()=>{
                 </li>
                 <li>intersection：两数组的交集</li>
                 <li>
-                    <p>nest：根据parent_id生成树结构（阿里一面真题）</p>
+                    <p style={{color:'red'}}>nest：根据parent_id生成树结构（阿里一面真题）:递归算法</p>
                     <ul>
+
 
                         {
                             nestedComments.map(v=>{

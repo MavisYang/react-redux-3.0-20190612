@@ -9,7 +9,7 @@ const Header = ({location,naviMetaData,userInfo})=>{
             </div>
             <div className="center">
                 {
-                    naviMetaData.naviList.map((item,index)=>{
+                    naviMetaData.naviList.map((item)=>{
                         return <Link to={item.target} key={item.code}  className={location.pathname.includes(item.target)?'menu active':'menu'}>
                             {item.name}
                         </Link>
@@ -27,13 +27,22 @@ const Header = ({location,naviMetaData,userInfo})=>{
     )
 }
 
-const judgeByCodeFunc = ()=> {//验证没有在NaviData中的列表
-    if(window.location.pathname.includes('/v2/syscope/iqscope')){
+const judgeByCodeFunc = ()=> {//验证没有在NaviData中的列表  //子列表需要返回和code值相同的值
+    if(window.location.pathname.includes('/v2/syscope/react')){
+        return 'react'
+    }
+    else if(window.location.pathname.includes('/v2/syscope/iqscope')){
         return 'iqscope'
-    } else if(window.location.pathname.includes('/v2/system/build')||window.location.pathname.includes('/v2/system/wxmanage')){
+    }
+    else if(window.location.pathname.includes('/v2/syscope/lodash')){
+        return 'lodash'
+    }
+    else if(window.location.pathname.includes('/v2/syscope/share')){
+        return 'shareTech'
+    }
+    else if(window.location.pathname.includes('/v2/system/build')||window.location.pathname.includes('/v2/system/wxmanage')){
         return 'sysscope'
     }
-//    /v2/syscope/react
 }
 
 const SideNavi=({location,naviMetaData,userInfo})=>{
@@ -44,8 +53,8 @@ const SideNavi=({location,naviMetaData,userInfo})=>{
             <div className="menuHeader">{subMenu?subMenu.name:''}</div>
             <div className="menuList">
                 {
-                    subMenu&&subMenu.children.map((item,index)=>{
-                        return <Link  key={item.code}  className={(judgeByCode?judgeByCode===item.code.toLowerCase():location.pathname.includes(item.target))?'menu active':'menu'} to={item.target}>
+                    subMenu&&subMenu.children.map((item)=>{
+                        return <Link  key={item.code}  className={(judgeByCode?judgeByCode.toUpperCase()===item.code.toUpperCase():location.pathname.includes(item.target))?'menu active':'menu'} to={item.target}>
                                 <span className={`icon-menu ${routeMapClass[item.code]}`}/>
                                 <span> {item.name}</span>
                             </Link>

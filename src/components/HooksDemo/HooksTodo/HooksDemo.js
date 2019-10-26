@@ -4,7 +4,7 @@ import {ParamsContext} from './UseContext'
 import ReducerCount from './ReducerRedux/ReducerCount'
 import FatherComponent from './UseOther'
 import ReducerRedux from './ReducerRedux'
-
+import WinSizeUseHooks from './WinSizeUseHooks'
 //======3:useContext======
 const AgeContext = createContext()
 function ChildAge(props) {
@@ -67,14 +67,14 @@ function HooksDemo(props) {
     }
 
     return(
-        <div>
+        <div className='container'>
             <Button onClick={()=>props.actions.goTo('/v2/tdscope')}>go back</Button>
-            <h1 style={{marginTop:'20px'}}>hook学习demo</h1>
-            <h1 style={{color:'red'}}>--useState,useEffect--</h1>
+            <h2>hook学习demo</h2>
+            <h3 style={{color:'red'}}>--useState,useEffect--</h3>
             <div onClick={()=>setAge(age+1)}>年龄：{age}岁</div>
             <div onClick={()=>setSex(sex==="男"?'女':'男')}>性别：{sex}</div>
 
-            <h1 style={{color:'red'}}>--createContext,useContext--</h1>
+            <h3 style={{color:'red'}}>--createContext,useContext--</h3>
             <AgeContext.Provider value={age} >
                 <ChildAge age={age}/>
             </AgeContext.Provider>
@@ -83,7 +83,7 @@ function HooksDemo(props) {
                 <ChildParams/>
             </ParamsContext.Provider>
 
-            <h1 style={{color:'red'}}>--useReducer--</h1>
+            <h3 style={{color:'red'}}>--useReducer--</h3>
             <Fragment>
                 <Button onClick={()=>setCount({type:'add'})}>+</Button>
                 <span style={{margin:'0 20px'}}> 数字：{count}</span>
@@ -92,10 +92,14 @@ function HooksDemo(props) {
 
             <ReducerCount initialCount={{count:0}}/>
 
-            <h1 style={{color:'red'}}>--useMemo,useRef--</h1>
+            <h3 style={{color:'red'}}>--useMemo,useRef--</h3>
             <FatherComponent/>
 
+            <h3 style={{color:'red'}}>--useReducer+useContext实现redux功能--</h3>
             <ReducerRedux/>
+
+            <h3 style={{color:'red'}}>--自定义hooks--</h3>
+            <WinSizeUseHooks/>
         </div>
     )
 
