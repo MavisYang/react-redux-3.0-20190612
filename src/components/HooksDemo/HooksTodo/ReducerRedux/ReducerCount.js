@@ -36,17 +36,17 @@ function ReducerCount({initialCount}) {
             console.log(prevCountRef,'end useEffect')
             document.title = `remove`;
         }
-    })
+    },[state.count])
 
     //=====8：useLayoutEffect====
-    useLayoutEffect(()=>{
-        console.log(prevCountRef,'useLayoutEffect')
-        document.title = `You clicked ${state.count} times`;
-        return()=>{
-            console.log(prevCountRef,'end useLayoutEffect')
-            document.title += `!!!`;
-        }
-    })
+    // useLayoutEffect(()=>{
+    //     console.log(prevCountRef,'useLayoutEffect')
+    //     document.title = `You clicked ${state.count} times`;
+    //     return()=>{
+    //         console.log(prevCountRef,'end useLayoutEffect')
+    //         document.title += `!!!`;
+    //     }
+    // })
 
     console.log('更新Example',state.count)
 
@@ -57,11 +57,12 @@ function ReducerCount({initialCount}) {
     // ReducerCount.js:37 {current: input} "end useEffect"
     // ReducerCount.js:34 {current: input} "useEffect"
 
+    //会打印三次的原因是没有加第二个参数
     //点击+或者-或者向input输入内容，会发现每次都会先进行 useEffect与useLayout的清理函数，再执行他们的初始函数。
     // 并且发现useEffect的函数会在最后才执行，它会晚于包含它的父函数。
     return (
         <Fragment>
-            <h3>一个js页面应用Reducer</h3>
+            <h3 style={{color:'red'}}>一个js页面应用Reducer</h3>
             <Button onClick={() => dispatch({type: 'add'})}>+</Button>
             <span style={{margin: '0 20px'}}> Reducer 数字：{state.count}</span>
             <Button onClick={() => dispatch({type: 'sub'})}>-</Button>

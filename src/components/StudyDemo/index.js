@@ -148,9 +148,9 @@ const TestJs = ()=>{
                                     {
                                         v.children&&v.children.map(i=>{
                                             return <Fragment key={i.id}>
-                                                <p>{i.name}</p>
+                                                <p style={{marginLeft:'20px'}}>{i.name}</p>
                                                 {
-                                                    i.children&&i.children.map(val=>(<p key={val.id}>{val.name}</p>))
+                                                    i.children&&i.children.map(val=>(<p key={val.id} style={{marginLeft:'40px'}}>{val.name}</p>))
                                                 }
                                             </Fragment>
                                         })

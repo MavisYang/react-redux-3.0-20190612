@@ -1,272 +1,9 @@
 
-## 搭建的react+redux+router项目
->最新版本，最新搭建方式
+## React Hooks
 
 ### 目录
-- [Redux应用](#Redux应用)
-- [Redux-thunk中间件](#Redux-thunk中间件)
-- [react-redux](#react-redux)
-- [React-router](#React-router)
 - [Hooks](#Hooks)
 - [Hooks todoList demo](#Hooks todoList demo)
-
-### 项目记录
-1. 左侧和右侧都有导航条
-2. 熟练应用redux
-
-**2019.10.11**
-
-### Redux应用
-
-详见`/components/TestDemo/TodoList`
-
-**Redux三要素：（个人理解）**
-
-- Action:   存储函数方法 
-- Store:    存储数据的仓库
-- Reducer:  数据处理仓库,必须是纯函数
-
-技巧：
-1. 把Action Types 单度写入一个文件 `/actions/actionTypes.js`
-```$xslt
-actions.js 引入 import * as types from './actionTypes.js'
-
-reducer.js  引入import {TODO_INIT, TODO_ADD} from '../actions/actionTypes.js'
-```
-2. 编写actionCreators.js文件 `/actions/index.js`
-
-
-**通过store.getState()获取存储store数据**
-
-**通过dispatch添加store数据**
-```
-store.dispatch({
-    type:'USERINFO_INIT',
-    data:UserInfoData.resultContent
-})
-
-```
-但深层的组件中一般不直接使用这两个方法。
-
-**只有store能改变自己的内容，Reducer不能改变**
-
->Reudcer只是返回了更改的数据，但是并没有更改store中的数据，store拿到了Reducer的数据，自己对自己进行了更新。
-
-**Reducer必须是纯函数**
-
-> 它的返回结果，是完全由传入的参数state和action决定的，这就是一个纯函数
-
-### 拆分UI组件
-
->分工合作，一人写样式，一人写逻辑。
-
-### 无状态组件
-
->直接收传入的props值，不做逻辑处理
-
-### 利用easy-mock创建模拟数据
-
->地址：https://www.easy-mock.com/mock/5cfcce489dc7c36bd6da2c99/xiaojiejie/getList
-
-### Redux-thunk中间件
-
->在实际工作中你可以使用中间件来进行日志记录、创建崩溃报告，调用异步接口或者路由。
-
->Redux-thunk是对Redux中dispatch的加强。
-
-
-**配置Redux-thunk组件**
-
-1.引入applyMiddleware,如果你要使用中间件，就必须在redux中引入applyMiddleware.
-2.引入redux-thunk库
-3.直接把thunk放到createStore里的第二个参数就可以了
-4.详见`/store/index`
-
-**2019.10.12**
-### [redux-saga中间件](https://jspang.com/posts/2019/06/20/redux.html#p18-%E8%BF%9B%E9%98%B6-redux-saga%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE)
-
-1.`npm install --save redux-saga`
-2. 创建sagas.js文件并引入，`sagaMiddleware.run(mySagas)`
->function* mySaga() {} 
- export default mySaga;
-
-3. 比Redux-thunk复杂一点,更适合于大的项目
-4. sage中需要用到generator函数
-
-ES6的新特性：
-```
-function* mySaga() { //Generator Function(生成器函数)。
-    //等待捕获action
-    yield takeEvery(GET_MY_LIST, getList) //关键字yield——迭代器生成器
-}
-```
-
-### 报错：Invariant failed: You should not use <Link> outside a <Router>
-
-排查之后的react-scripts版本有关
-"react-scripts": "^3.0.1",升不了级
-最新："react-scripts": "3.2.0",
-重新构建一个就好了 （死办法）
-```$xslt
- "antd": "^3.23.6",
-    "axios": "^0.19.0",
-    "connected-react-router": "^6.5.2",
-    "history": "^4.10.1",
-    "prop-types": "^15.7.2",
-    "react": "^16.10.2",
-    "react-dom": "^16.8.6",
-    "react-redux": "^7.1.1",
-    "react-router": "^5.1.2",
-    "react-router-dom": "^5.0.1",
-    "react-scripts": "3.0.1",
-    "redux": "^4.0.4",
-    "redux-thunk": "^2.3.0"
-```
-
-npm install history react-router-dom react-router react-redux react-dom redux react connected-react-router prop-types -S
-
-**2019.10.12**
-### 报错：不能根目录引入scss
-```$xslt
-./src/Layout/index.scss (./node_modules/css-loader/dist/cjs.js??ref--6-oneOf-5-1!./node_modules/postcss-loader/src??postcss!./node_modules/resolve-url-loader??ref--6-oneOf-5-3!./node_modules/sass-loader/lib/loader.js??ref--6-oneOf-5-4!./src/Layout/index.scss)
-@import "style/public.scss";
-^
-      File to import not found or unreadable: style/public.scss.
-      in /Users/mavis/gitHub/react_2019/redux-link/src/Layout/index.scss (line 2, column 1)
-
-```
-**解决**
-1.添加jsconfig.json
-```$xslt
-{
-    "compilerOptions": {
-      "baseUrl": "src"
-    },
-    "include": ["src"]
-  }
-```
-2.在安装插件时，最好将服务器关闭
-
-### react-redux
-react-redux中用到两个只是：provider和connect
-
-1.Provider提供器
->Provider是一个提供器，只要使用这个组件，组件里的其他所有组件都可以使用`store`了，这也是React-redux的核心组件了。
-
-```
-import {Provider} from "react-redux";
-ReactDOM.render(
-    <Provider store={store}>
-      <TodoList/>
-    </Provider>, document.getElementById('root'));
-
-```
-2.connect连接器
->connects是一个连接器，链接`state`和`dispatch`,这个可以简单的获取到`store`中的数据了。
->connect的作用是把UI组件（无状态组件）和业务逻辑代码的分开，然后通过connect再链接到一起，让代码更加清晰和易于维护。这也是React-Redux最大的有点。
-
-```
-import {bindActionCreators} from 'redux'
-import {connect} from 'react-redux';//引入连接器
-import * as TodoActions from '../actions'
-
-const mapStateToProps = state => ({
-    userInfo: state.userInfo,
-    todosReducer: state.todosReducer
-})
-
-const mapDispatchToProps = dispatch => ({
-    actions: bindActionCreators(TodoActions, dispatch)
-})
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(TestScope)
-
-
-```
-
-- [react-redux中的provider和connect](https://jspang.com/posts/2019/06/20/redux.html#p21-进阶-react-redux中的provider和connect)
-
-### React-router
-
-1. exact 精确匹配
-2. 动态传值
->这个设置是以:开始的，然后紧跟着你传递的key（键名称）名称
-`<Route exact path='/v2/tdscope/build/id:?/type:?' render={props=><TodoList {...props} actions={actions}/>}/>`
-
-3. Link上传递值
-`<Link to="/list/123">列表</Link>`
-
-4. 在组件上接收并显示传递值
-`this.props.match` 包括三个部分:
-- patch:自己定义的路由规则，可以清楚的看到是可以产地id参数的。
-- url: 真实的访问路径，这上面可以清楚的看到传递过来的参数是什么。
-- params：传递过来的参数，key和value值。
-
-5. ReactRouter重定向`Redirect`使用
-大致两种知识点：重定向，即跳转页面,直接跳转。
-- 标签式重定向:就是利用<Redirect>标签来进行重定向，业务逻辑不复杂时建议使用这种。
-`<Redirect to={'/app'}/>`
-- 编程式重定向:这种是利用编程的方式，一般用于业务逻辑当中，比如登录成功挑战到会员中心页面。直接在构造函数constructor中加入下面的重定向代码。
-` this.props.history.push("/home/")`
-⚠️：重定向和跳转有一个重要的区别，就是跳转式可以用浏览器的回退按钮返回上一级的，而重定向是不可以的。
-
-6. 嵌套路由
-
-**2019.10.14**
-
-[实参和形参区别- 简书](https://www.jianshu.com/p/51b8fc5dd158)
-
-- 形式参数：定义函数时函数名后括号中的变量名！
-- 实际参数：调用函数时函数名后括号中的表达式！
-
->平时用的变量名传递都是形参
-
-实参
-```
-try {
-    getRobot(callback)
-} catch (error) {
-    console.log(err)
-}
-function getRobot(callback){
-    var url = `${API_PATH}/lizcloud/api/liz-activitymain-api/noauth/activitymain/activity/assist/detail?tenantId=${params.tenantId}&userId=${params.userId}&activityId=${params.activityId}`
-    PromiseXHR(url,null,null,'get').then(res=>{
-        callback(res)
-    })
-}
-
-function callback(res) {
-    var resData = JSON.parse(res)
-    console.log('----)
-}
-
-```
-
-### Skeleton骨架屏(antd)
-[skeleton骨架屏](https://ant.design/components/skeleton-cn/)
-
-###  ReactDOM.createPortal
->Portals 提供了一种很好的方法，将子节点渲染到父组件 DOM 层次结构之外的 DOM 节点。
->第一个参数（child）是任何可渲染的 React 子元素，例如一个元素，字符串或 片段(fragment)。第二个参数（container）则是一个 DOM 元素。
-
-```js
- ReactDOM.createPortal(child, container)
-```
-
-[Portals](https://zh-hans.reactjs.org/docs/portals.html)
-### 自定义事件的触发dispatchEvent
-
-```js
-//创建一个全局监听事件
-export const sendEvent = (key, vals) => {
-    var event = new Event(key);
-    event.vals = vals;
-    window.dispatchEvent(event);
-}
-```
-- [自定义事件的触发dispatchEvent](https://www.jianshu.com/p/5f9027722204)
 
 **2019.10.15**
 
@@ -316,8 +53,11 @@ function createRows(props) {
 ```
 ### useEffect
 >用useEffect函数来代替生命周期函数(componentDidMount,componentDidUpdate,componentWillUnmount)
+>类似于setState(state, cb)中的cb，总是在整个更新周期的最后才执行
 
-#### useEffect两个注意点
+
+**useEffect两个注意点**
+
 1. React首次渲染和之后的每次渲染都会调用一遍useEffect函数，而之前我们要用两个生命周期函数分别表示首次渲染(componentDidMount)和更新导致的重新渲染(componentDidUpdate)。
 2. useEffect中定义的函数的执行不会阻碍浏览器更新视图，也就是说这些函数时异步执行的，而componentDidMount和componentDidUpdate中的代码都是同步执行的。
    个人认为这个有好处也有坏处吧，比如我们要根据页面的大小，然后绘制当前弹出窗口的大小，如果时异步的就不好操作了。
@@ -658,5 +398,177 @@ function ProductDetails({ fetchProduct }) {
     }
 }
 ```
+
+**2019/10/29**
+### 分享hooks
+
+[API](http://react.html.cn/docs/hooks-reference.html)：
+Basic Hooks:(基础的)
+- useState
+- useEffect
+- useContext
+
+Additional Hooks:(额外的)
+- useReducer
+- useCallback
+- useMemo
+- useRef
+- useImperativeMethods
+- useLayoutEffect
+
+#### Hooks好处
+* React Hooks增加了无需编写JavaScript类即可访问状态等功能的功能,也就是让无狀态组件拥有了许多只有有狀态组件的能力，
+    * 如自更新能力（setState，使用useState），
+    * 访问ref（使用useRef或useImperativeMethods），
+    * 访问context(使用useContext)，
+    * 使用更高级的setState设置（useReducer），
+    * 及进行类似生命周期的阶段性方法（useEffect或useLayoutEffect）
+   
+#### useState
+1.定义
+>useState代替this.state和this.setState,是react 自带的一个hook 函数，它的作用是用来生命状态变量。
+
+2.应用
+
+```js
+const [state,setState] = useState('');
+```
+3.参数
+>useState接收的参数是状态的初始值，它返回一个数组，这个数组的第0位是当前的状态值，第1位是可以改变状态值的方法函数。
+
+#### useEffect
+1.定义
+>useEffect类似于setState(state, cb)中的cb，总是在整个更新周期的最后才执行,(特别要注意这句话：DOM在渲染完了之后调用effect)
+>useEffect函数用来代替生命周期函数(componentDidMount,componentDidUpdate,componentWillUnmount)
+
+2.应用
+`useEffect(fn, [])`
+```
+useEffect(()=>{
+    console.log('useEffect=componentDidMount/componentDidUpdate')
+    document.addEventListener('click',props.handleHideStatus)
+    return()=>{
+        console.log('useEffect=componentWillUnmount')
+        document.removeEventListener('click',props.handleHideStatus)
+    }
+},[])
+
+useEffect(()=>{
+    const timer = setInterval(()=>{
+        setCount(count+1)
+    },1000)
+
+    return()=>{
+        clearInterval(timer)
+    }
+},[count])
+```
+
+3.参数
+第一个参数
+(1) useEffect在react首次渲染和之后的每次渲染都会被调用，相当于首次渲染(componentDidMount)和更新导致的重新渲染(componentDidUpdate)
+(2) 通过返回一个函数的形式进行解绑，相当于(componentWillUnmount)
+第二个参数
+(3) 第二个参数是需要开发者告诉react用到了哪些外部变量，如果第二个参数不传，会渲染三次：（componentDidUpdate--componentWillUnmount--componentDidMount），
+所以，在不需要确定具体的变量时，可以传个[]（空数组），但[]也不是万能的，如出现无限循环时，需要一一排除，或者将函数放到effect里，或者提到组件外面，或者用useCallback包一层。useMemo 可以做类似的事情以避免重复生成对象。
+⚠️ []表示effect没有使用任何React数据流里的值，因此该effect仅被调用一次是安全的。[]同样也是一类常见问题的来源，也即你以为没使用数据流里的值但其实使用了。
+需要通过一些策略（主要是useReducer 和 useCallback）来移除这些effect依赖，而不是错误地忽略它们。
+
+4.[useEffect完整指南](https://overreacted.io/zh-hans/a-complete-guide-to-useeffect/)
+
+##### 解答一（摘要）
+
+- 🤔 如何用useEffect模拟componentDidMount生命周期？
+- 🤔 如何正确地在useEffect里请求数据？[]又是什么？
+- 🤔 我应该把函数当做effect的依赖吗？
+- 🤔 为什么有时候会出现无限重复请求的问题？
+- 🤔 为什么有时候在effect里拿到的是旧的state或prop？
+
+> useEffect会捕获 props和state。所以即便在回调函数里，你拿到的还是初始的props和state。
+
+**问题：怎么理解拿到的是初始的props和state，因为打印出来的count是在变化的**
+
+>useEffect有时候会出现无限重复请求的问题,这个通常发生于你在effect里做数据请求并且没有设置effect依赖参数的情况。
+
+**解决：需要一一排除，或者将函数放到effect里，或者提到组件外面，或者用useCallback包一层。useMemo 可以做类似的事情以避免重复生成对象。**
+
+##### 解答二（正文）
+
+1.每一次渲染都有它自己的 Props and State
+>组件在第一次渲染的时候，从useState()拿到count的初始值0。当我们调用setCount(1)，React会再次渲染组件，这一次count是1。如此等等.
+>当我们更新状态的时候，React会重新渲染组件。每一次渲染都能拿到独立的count 状态，这个状态值是函数中的一个常量。
+>它仅仅只是在渲染输出中插入了count这个数字。这个数字由React提供。当setCount的时候，React会带着一个不同的count值再次调用组件。然后，React会更新DOM以保持和渲染输出一致。
+>这里关键的点在于任意一次渲染中的count常量都不会随着时间改变。渲染输出会变是因为我们的组件被一次次调用，而每一次调用引起的渲染中，它包含的count值独立于其他渲染。
+
+2.每一次渲染都有它自己的事件处理函数
+>在任意一次渲染中，props和state是始终保持不变的。如果props和state在不同的渲染中是相互独立的，那么使用到它们的任何值也是独立的（包括事件处理函数）。
+>它们都“属于”一次特定的渲染。即便是事件处理中的异步函数调用“看到”的也是这次渲染中的count值。
+
+3.每次渲染都有它自己的Effects
+抛一个问题给你：effect是如何读取到最新的count 状态值的呢？
+>并不是count的值在“不变”的effect中发生了改变，而是effect 函数本身在每一次渲染中都不相同
+React会记住你提供的effect函数，并且会在每次更改作用于DOM并让浏览器绘制屏幕后去调用它。
+
+
+(1)为了确保我们已经有了扎实的理解，我们再回顾一下第一次的渲染过程：
+
+- React: 给我状态为 `0` 时候的UI。
+- 你的组件:
+    - 给你需要渲染的内容: `<p>You clicked 0 times</p>`。
+    - 记得在渲染完了之后调用这个effect: `() => { document.title = 'You clicked 0 times' }`。
+-React: 没问题。开始更新UI，喂浏览器，我要给DOM添加一些东西。
+- 浏览器: 酷，我已经把它绘制到屏幕上了。
+- React: 好的， 我现在开始运行给我的effect
+    - 运行 `() => { document.title = 'You clicked 0 times' }`。
+    
+(2)现在我们回顾一下我们点击之后发生了什么：
+
+- 你的组件: 喂 React, 把我的状态设置为`1`。
+- React: 给我状态为 `1`时候的UI。
+- 你的组件:
+    - 给你需要渲染的内容: `<p>You clicked 1 times</p>`。
+    - 记得在渲染完了之后调用这个effect： `() => { document.title = 'You clicked 1 times' }`。
+- React: 没问题。开始更新UI，喂浏览器，我修改了DOM。
+- Browser: 酷，我已经将更改绘制到屏幕上了。
+- React: 好的， 我现在开始运行属于这次渲染的effect
+    - 运行 `() => { document.title = 'You clicked 1 times' }`。
+
+
+4.每一次渲染都有它自己的…所有
+
+5.使用refs在effect的回调函数里读取最新的值而不是捕获的值
+
+**每一个组件内的函数（包括事件处理函数，effects，定时器或者API调用等等）会捕获某次渲染中定义的props和state。**
+
+>在组件内什么时候去读取props或者state是无关紧要的。因为它们不会改变。在单次渲染的范围内，props和state始终保持不变。
+
+>当然，有时候你可能想在effect的回调函数里读取最新的值而不是捕获的值。最简单的实现方法是使用refs，
+
+
+```js
+const [count, setCount] = useState(0)
+const latestCount = useRef(count)
+useEffect(() => {
+    // Set the mutable latest value
+    latestCount.current = count
+    setTimeout(() => {
+        // Read the mutable latest value
+        console.log(`模拟了class中的行为:you clicked ${latestCount.current} times`)
+    }, 300)
+})
+```
+
+6.Effect中的清理
+
+>React只会在浏览器绘制后运行effects。这使得你的应用更流畅因为大多数effects并不会阻塞屏幕的更新。Effect的清除同样被延迟了。上一次的effect会在重新渲染后被清除：
+
+
+
+
+
+
+
+
+
 
 

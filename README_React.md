@@ -1,5 +1,6 @@
+>再次阅读react文档
 
-[react中文文档](http://react.html.cn/docs/accessibility.html)
+[react中文文档](https://zh-hans.reactjs.org/docs/getting-started.html)
 
 **2019.10.18**
 ### 语义化的 HTML
@@ -263,20 +264,65 @@ static getDerivedStateFromProps(nextProps, prevState) {
 
 
 
+**2019.10.28**
 
+## [生命周期](https://www.reactjscn.com/docs/react-component.html#static-getderivedstatefromprops)
 
+#### 同时应用getDerivedStateFromProps()和UNSAFE_componentWillMount，报错
+>index.js:1375 Warning: Unsafe legacy lifecycles will not be called for components using new component APIs.
+TheLifeCycle uses getDerivedStateFromProps() but also contains the following legacy lifecycles:
+   UNSAFE_componentWillMount The above lifecycles should be removed.
 
+#### 生命周期`static getSnapshotBeforeUpdate()`将被忽略
+ 
+>TheLifeCycle: getSnapshotBeforeUpdate() is defined as a static method and will be ignored. Instead, declare it as an instance method. 
 
+#### `getSnapshotBeforeUpdate()`必须和`componentDidUpdate()`一起使用.
 
+>TheLifeCycle: getSnapshotBeforeUpdate() should be used with componentDidUpdate(). This component defines getSnapshotBeforeUpdate() only. 
 
+#### TheLifeCycle.getSnapshotBeforeUpdate(): A snapshot value (or null) must be returned. You have returned undefined.
 
+1. 初始化
+```
+constructor
+getDerivedStateFromProps {nextProps: {…}, prevState: {…}} //nextProps: {defaultColor: "blue"}
+                                                            prevState: {currentColor: "blue"}
+                                                            __proto__: Object
 
+render
+componentDidMount
+```
+2. 更新(父组件改变，子组件跟着改变/子组件改变state值) 
+```
+getDerivedStateFromProps {nextProps: {…}, prevState: {…}} //nextProps: {defaultColor: "red"}
+                                                           prevState: {currentColor: "blue"}
+ （获取从props导入的state值）                                 __proto__: Object
 
+shouldComponentUpdate {nextProps: {…}, nextState: {…}, nextContext: {…}}//nextContext: {}
+                                                                          nextProps: {defaultColor: "red"}
+                                                                          nextState: {currentColor: "red"}
+                                                                          __proto__: Object
+render
 
+getSnapshotBeforeUpdate {prevProps: {…}, prevState: {…}} //prevProps: {defaultColor: "blue"}
+                                                           prevState: {currentColor: "blue"}
+ （获取更新之前的props和state值）                                                          __proto__: Object
 
+componentDidUpdate {prevProps: {…}, prevState: {…}, snapshot: null} //prevProps: {defaultColor: "blue"}
+                                                                      prevState: {currentColor: "blue"}
+                                                                      snapshot: null
 
+```
+3. 卸载
+```
+componentWillUnmount()
+```
 
-
+4. 错误处理
+```
+componentDidCatch()
+```
 
 
 

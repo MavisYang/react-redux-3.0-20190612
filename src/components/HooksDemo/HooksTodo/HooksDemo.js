@@ -43,10 +43,10 @@ function HooksDemo(props) {
          * 通过返回一个函数的形式进行解绑，相当于(componentWillUnmount)
          */
         console.log(age)
-        onShow('componentDidMount')
+        onShow('useEffect--componentDidMount')
         return ()=>{
             console.log('====================')
-            onShow('componentWillUnmount')
+            onShow('useEffect--componentWillUnmount')
         }
     },[])
 
@@ -66,6 +66,7 @@ function HooksDemo(props) {
         console.log(state)
     }
 
+    console.log('render')
     return(
         <div className='container'>
             <Button onClick={()=>props.actions.goTo('/v2/tdscope')}>go back</Button>
