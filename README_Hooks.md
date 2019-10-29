@@ -562,7 +562,7 @@ useEffect(() => {
 
 >React只会在浏览器绘制后运行effects。这使得你的应用更流畅因为大多数effects并不会阻塞屏幕的更新。Effect的清除同样被延迟了。上一次的effect会在重新渲染后被清除：
 
-
+>effect的清除并不会读取“最新”的props。它只能读取到定义它的那次渲染中的props值：
 
 
 
