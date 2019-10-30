@@ -40,6 +40,9 @@ const judgeByCodeFunc = ()=> {//验证没有在NaviData中的列表  //子列表
     else if(window.location.pathname.includes('/v2/syscope/share')){
         return 'shareTech'
     }
+    else if(window.location.pathname.includes('/v2/syscope/es6')){
+        return 'es6'
+    }
     else if(window.location.pathname.includes('/v2/system/build')||window.location.pathname.includes('/v2/system/wxmanage')){
         return 'sysscope'
     }

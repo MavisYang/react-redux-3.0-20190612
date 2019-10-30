@@ -183,6 +183,18 @@ export const NaviData = {
                 "selected": null,
                 "children": null
             },
+            {
+                "id": "43cb530a-64b1-11e9-8723-f45c89c26dbf",
+                "code": "es6",
+                "name": "ES6",
+                "orderSeq": 5,
+                "target": "/v2/syscope/es6",
+                "handleRight": "HR_CUSTOMIZED_ROBOT;HR_TRIAL_GROUP",
+                "status": 1,
+                "parentId": "43bf0686-64b1-11e9-8723-f45c89c26dbf",
+                "selected": null,
+                "children": null
+            },
                 //{
             //     "id": "95e5b7e4-2370-11e9-954e-f45c89c26dbf",
             //     "code": "ARScope",
