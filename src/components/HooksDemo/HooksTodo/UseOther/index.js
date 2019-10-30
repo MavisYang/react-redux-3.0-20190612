@@ -28,15 +28,12 @@ function FatherComponent() {
             </ChildrenComponent>
 
             <h3>useRef获取DOM元素和保存变量</h3>
-
             <Input ref={iptEl} onChange={(e)=>setValue(e.target.value)} style={{width:'200px'}}/>
             <span>value:{inputValue}</span>
             <Button onClick={onFocus}>Focus the input</Button>
-
-
             <MeasureExample/>
-
             <Counter/>
+
         </div>
     )
 
@@ -96,7 +93,12 @@ function FancyInput (props,ref){
             inputRef.current.focus()
         }
     }));
-    return <input type="text" placeholder={'useImperativeHandle'} ref={inputRef}/>
+    return (
+        <div>
+            useImperativeHandle:
+            <input type="text" placeholder={'useImperativeHandle'} ref={inputRef}/>
+        </div>
+    )
 }
 
 FancyInput = forwardRef(FancyInput)

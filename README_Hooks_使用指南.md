@@ -5,8 +5,10 @@
 - [useEffect完整指南](#useEffect完整指南)
 - [useMemo与useCallback使用指南](#useMemo与useCallback使用指南)
 
-### [useEffect完整指南](https://overreacted.io/zh-hans/a-complete-guide-to-useeffect/)
-
+**2019.10.29**
+### useEffect完整指南
+- [useEffect完整指南](https://overreacted.io/zh-hans/a-complete-guide-to-useeffect/)
+- [useEffect使用指南](https://zhuanlan.zhihu.com/p/65773322)
 ##### 解答一（摘要）
 
 - 🤔 如何用useEffect模拟componentDidMount生命周期？
@@ -205,11 +207,72 @@ useEffect(() => {
 **2019.10.30**
 ### [useMemo与useCallback使用指南](https://zhuanlan.zhihu.com/p/66166173)
 
+1. 基于class的形式创建的组件，性能优化会通过在shouldComponentUpdate中判断前后的props和state，如果没有变化，则返回false来阻止更新。
+2. 基于hooks创建的函数组件中，react不在区分mount和update两个状态，这意味着函数组件的每一次调用都会执行其内部的所有逻辑，
+那么会带来较大的性能损耗。因此useMemo和useCallback就是解决性能问题的杀手锏。
+3. useMemo和useCallback都会在组件第一次渲染的时候执行，之后会在其依赖的变量发生改变时再次执行；并且这两个hooks都返回缓存的值，useMemo返回缓存的变量，useCallback返回缓存的函数。
 
+4. useMemo的用法与useEffect非常相似，如果第二个参数为空则函数组件每次被渲染，useMemo内的逻辑都会被执行。
+如果第二个参数为一个空数组，那么仅会在组件第一次被渲染时执行。其他的情况都是在数组内元素完全相同时才不执行。
+5. useEffect是在渲染之后完成的,useMemo是在渲染期间完成的
+6. `useMemo( ()=>{fn} ) 等价于 useCallback(fn)`
 
+#### useMemo 
+>useMemo返回缓存的变量
 
+用法：
+>const fnA = useMemo(fnB, [a])
 
+```
+function WithoutMemo() {
+    const [count, setCount] = useState(1);
+    const [val, setValue] = useState('');
+    // const expensive =()=> {
+    //     console.log('compute');
+    //     let sum = 0;
+    //     for (let i = 0; i < count * 100; i++) {
+    //         sum += i;
+    //     }
+    //     return sum;
+    // }
+    
+    const expensive = useMemo(()=>{
+        console.log('compute');
+        let sum = 0;
+        for (let i = 0; i < count * 100; i++) { //需要的依赖count
+            sum += i;
+        }
+        return sum;
+    },[count])
 
+    return <div>
+        <h4>{count}-{val}-{expensive}</h4>
+        <div>
+            <Button onClick={() => setCount(count + 1)}>+c1</Button>
+            <Input style={{width:'200px'}} value={val} onChange={event => setValue(event.target.value)}/>
+        </div>
+    </div>;
+}
+
+```
+
+- 在没有使用useMemo时，无论是修改count还是val，由于组件的重新渲染，都会触发expensive的执行,造成性能问题；
+- 我们只要在count的值修改时，执行expensive计算。所以要用到useMemo，指定依赖值；
+- 使用useMemo来执行昂贵的计算，然后将计算值返回，并且将count作为依赖值传递进去。这样，就只会在count改变的时候触发expensive执行，在修改val的时候，返回上一次缓存的值。
+
+#### useCallback
+
+> useCallback返回缓存的函数
+
+用法:
+>const fnA = useCallback(fnB, [a])
+
+应用场景：
+>所有依赖本地状态或props来创建函数，需要使用到缓存函数的地方，都是useCallback的应用场景。
+
+例如：
+>使用场景是：有一个父组件，其中包含子组件，子组件接收一个函数作为props；通常而言，如果父组件更新了，子组件也会执行更新；
+>但是大多数场景下，更新是没有必要的，我们可以借助useCallback来返回函数，然后把这个函数作为props传递给子组件；这样，子组件就能避免不必要的更新。
 
 
 

@@ -116,19 +116,19 @@ useLayoutEffect(()=>{
 可以直接在js中创建，也可以在公共js中创建
 ```
 //======3======
-import {AgeContext,ParamsContext} from './UseContexts'
-或者
+
 const AgeContext = createContext()
+
+<AgeContext.Provider value={age} >
+    <ChildAge/>
+</AgeContext.Provider>
+
 function ChildAge() {
     const age = useContext(AgeContext)
     return(<h3>通过createContext和useContext实现父子组件的传递：{age}</h3>)
 
 }
 
-
-<AgeContext.Provider value={age} >
-    <ChildAge/>
-</AgeContext.Provider>
 ```
 ```
 {color: "blue", dispatch:f} // "useContext(ColorContext)"
@@ -216,23 +216,37 @@ const [count,setCount] = useReducer((state,action)=>{
 2. useReducer：通过action的传递，更新复杂逻辑的状态，主要是可以实现类似Redux中的Reducer部分，实现业务逻辑的可行性。
 
 ### useMemo优化React Hooks程序性能
-1. useMemo主要用来解决使用React hooks产生的无用渲染的性能问题。
-
+1. useMemo主要用来解决使用React hooks产生的无用渲染的性能问题。useMemo返回缓存的变量
+2. useMemo 优化性能: 只要使用useMemo，然后给她传递第二个参数，参数匹配成功，才会执行。
 >使用function的形式来声明组件，失去了shouldCompnentUpdate（在组件更新之前）这个生命周期，也就是说我们没有办法通过组件更新前条件来决定组件是否更新。
 >而且在函数组件中，也不再区分mount和update两个状态，这意味着函数组件的每一次调用都会执行内部的所有逻辑，就带来了非常大的性能损耗。
 >useMemo和useCallback都是解决上述性能问题的
 
-**useMemo 优化性能: 只要使用useMemo，然后给她传递第二个参数，参数匹配成功，才会执行。**
+
+**另一种说法:**
+1. 基于class的形式创建的组件，性能优化会通过在shouldComponentUpdate中判断前后的props和state，如果没有变化，则返回false来阻止更新。
+2. 基于hooks创建的函数组件中，react不在区分mount和update两个状态，这意味着函数组件的每一次调用都会执行其内部的所有逻辑，
+那么会带来较大的性能损耗。因此useMemo和useCallback就是解决性能问题的杀手锏。
+3. useMemo和useCallback都会在组件第一次渲染的时候执行，之后会在其依赖的变量发生改变时再次执行；并且这两个hooks都返回缓存的值，useMemo返回缓存的变量，useCallback返回缓存的函数。
 
 ```js
  const funcConst = useMemo(()=> handleFunc(name),[name])
 ```
 
 ### useCallback
->由于函数也具有 Capture Value 特性，经过 useCallback 包装过的函数可以当作普通变量作为 useEffect 的依赖。
->useCallback 做的事情，就是在其依赖变化时，返回一个新的函数引用，触发 useEffect 的依赖变化，并激活其重新执行。
+
+> useCallback返回缓存的函数
+
+用法:
+>const fnA = useCallback(fnB, [a])
+
+应用场景：
+>所有依赖本地状态或props来创建函数，需要使用到缓存函数的地方，都是useCallback的应用场景。
+
+- 由于函数也具有 Capture Value 特性，经过 useCallback 包装过的函数可以当作普通变量作为 useEffect 的依赖。
+- useCallback 做的事情，就是在其依赖变化时，返回一个新的函数引用，触发 useEffect 的依赖变化，并激活其重新执行。
 Function Component 中利用 useCallback 封装的取数函数，可以直接作为依赖传入 useEffect，useEffect 只要关心取数函数是否变化，
->而取数参数的变化在 useCallback 时关心，再配合 eslint 插件的扫描，能做到 依赖不丢、逻辑内聚，从而容易维护。
+- 而取数参数的变化在 useCallback 时关心，再配合 eslint 插件的扫描，能做到 依赖不丢、逻辑内聚，从而容易维护。
  
 >useCallback(fn, inputs) is equivalent to useMemo(() => fn, inputs).
 
@@ -243,7 +257,7 @@ Function Component 中利用 useCallback 封装的取数函数，可以直接作
 2. 用useRef来保存变量，这个在工作中也很少能用到，我们有了useContext这样的保存其实意义不大，但是这是学习，也要把这个特性讲一下。
 
 避免重新创建useRef()初始值
-```js
+```
 function Image(props) {
   const ref = useRef(null);
     // ✅ IntersectionObserver is created lazily once
@@ -258,19 +272,24 @@ function Image(props) {
 }
 ```
 **2019.10.18**
-### useImperativeHandle 这个不懂
+### [useImperativeHandle](https://zh-hans.reactjs.org/docs/hooks-reference.html#useimperativehandle)
 
+不懂
+
+>useImperativeHandle 可以让你在使用 ref 时自定义暴露给父组件的实例值。在大多数情况下，应当避免使用 ref 这样的命令式代码。useImperativeHandle 应当与 forwardRef 一起使用
 ### useLayoutEffect
 
 [useEffect与useLayoutEffect](https://zhuanlan.zhihu.com/p/53077376)
 
 [useEffect和useLayoutEffect区别](https://www.jianshu.com/p/99df10f46198)
+
 >官方解释，这两个hook基本相同，调用时机不同，请全部使用useEffect，除非遇到bug或者不可解决的问题，再考虑使用useLayoutEffect。
 >还举了个例子，譬如你想测量DOM元素时候，使用useLayoutEffect。
+
 >个人感觉举例不恰当，测试DOM我也完全可以在useEffect中测量啊。说如果需要在paint前改变DOM，更合适。
 我做过测试，譬如一个div尺寸是200 * 200，我想改成100 * 100，如果写在useEffect中，确实会造成页面抖动，写在useLayoutEffect中可以避免。
 
-```js
+```
 const a = useRef()
     useEffect(()=>{
         console.log(a,'useEffect')

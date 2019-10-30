@@ -1,22 +1,20 @@
-
 ## React Hooks share 总结
 
 **2019/10/29**
-== share begin ==
 ### 分享hooks
 
 [API](http://react.html.cn/docs/hooks-reference.html)：
-Basic Hooks:(基础的)
+
+**Basic Hooks:(基础的)**
 - useState
 - useEffect
 - useContext
 
-Additional Hooks:(额外的)
+**Additional Hooks:(额外的)**
 - useReducer
 - useCallback
 - useMemo
 - useRef
-- useImperativeMethods
 - useLayoutEffect
 
 #### Hooks好处
@@ -131,17 +129,55 @@ useEffect(() => {
 
 >幸运的是， setCount(c => c + 1)有一个更强大的姐妹模式，它的名字叫useReducer。
 
+- [useEffect使用指南](https://zhuanlan.zhihu.com/p/65773322)
+
 欲知后事请听下回分解😊～
 
-#### useCallback 和 useMemo
->使用useCallback，函数完全可以参与到数据流中。
+额外将一点：
 
->到处使用useCallback是件挺笨拙的事。当我们需要将函数传递下去并且函数会在子组件的effect中被调用的时候，useCallback 是很好的技巧且非常有用。
+#### useLayoutEffect
+#### useEffect与useLayoutEffect
 
-**解决：需要一一排除，或者将函数放到effect里，或者提到组件外面，或者用useCallback包一层。useMemo 可以做类似的事情以避免重复生成对象。**
+>官方解释，useLayoutEffect与useEffect这两个hook基本相同，调用时机不同，请全部使用useEffect，除非遇到bug或者不可解决的问题，再考虑使用useLayoutEffect。
 
+useLayoutEffect要在useEffect之前调用。
+```
+const a = useRef()
+useEffect(()=>{
+    console.log(a,'useEffect')
+    document.title = `You clicked ${state.count} times`;
+    return()=>{
+        console.log(a,'end useEffect')
+        document.title = `remove`;
+    }
+})
 
-也可以添加函数来实现以来关系，应用useCallback.这样可以确保它不会在每个渲染器上都改变，除非它自己的依赖性也改变了
+useLayoutEffect(()=>{
+    console.log(a,'useLayoutEffect')
+    document.title = `You clicked ${state.count} times`;
+    return()=>{
+        console.log(a,'end useLayoutEffect')
+        document.title += `!!!`;
+    }
+})
+
+console.log('更新Example',state.count)
+
+//====打印结果===
+//更新Example 2
+// ReducerCount.js:46 {current: input} "end useLayoutEffect"
+// ReducerCount.js:43 {current: input} "useLayoutEffect"
+// ReducerCount.js:37 {current: input} "end useEffect"
+// ReducerCount.js:34 {current: input} "useEffect"
+
+//点击+或者-或者向input输入内容，会发现每次都会先进行 useEffect与useLayout的清理函数，再执行他们的初始函数。
+// 并且发现useEffect的函数会在最后才执行，它会晚于包含它的父函数。
+
+```
+
+=== end one=====
+
+**2019.10.30**
 
 #### useContext
 1. 定义
@@ -167,12 +203,270 @@ function ChildAge(props) {
  <ChildAge age={18}/>
 ```
 
+#### useCallback 和 useMemo
 
-（时间不到的话再将将useLayoutEffect）
+### [useMemo与useCallback使用指南](https://zhuanlan.zhihu.com/p/66166173)
 
-== share end ==
+1. 基于class的形式创建的组件，性能优化会通过在shouldComponentUpdate中判断前后的props和state，如果没有变化，则返回false来阻止更新。
+2. 基于hooks创建的函数组件中，react不在区分mount和update两个状态，这意味着函数组件的每一次调用都会执行其内部的所有逻辑，
+那么会带来较大的性能损耗。因此useMemo和useCallback就是解决性能问题的杀手锏。
+3. useMemo和useCallback都会在组件第一次渲染的时候执行，之后会在其依赖的变量发生改变时再次执行；并且这两个hooks都返回缓存的值，useMemo返回缓存的变量，useCallback返回缓存的函数。
+
+#### useMemo 
+>useMemo返回缓存的变量
+
+用法：
+>const fnA = useMemo(fnB, [a])
+
+`useMemo( ()=>{fn} ) 等价于 useCallback(fn)`
+```
+function WithoutMemo() {
+    const [count, setCount] = useState(1);
+    const [val, setValue] = useState('');
+    // const expensive =()=> {
+    //     console.log('compute');
+    //     let sum = 0;
+    //     for (let i = 0; i < count * 100; i++) {
+    //         sum += i;
+    //     }
+    //     return sum;
+    // }
+    
+    const expensive = useMemo(()=>{
+        console.log('compute');
+        let sum = 0;
+        for (let i = 0; i < count * 100; i++) { //需要的依赖count
+            sum += i;
+        }
+        return sum;
+    },[count])
+
+    return <div>
+        <h4>{count}-{val}-{expensive}</h4>
+        <div>
+            <Button onClick={() => setCount(count + 1)}>+c1</Button>
+            <Input style={{width:'200px'}} value={val} onChange={event => setValue(event.target.value)}/>
+        </div>
+    </div>;
+}
+
+```
+
+- 在没有使用useMemo时，无论是修改count还是val，由于组件的重新渲染，都会触发expensive的执行,造成性能问题；
+- 我们只要在count的值修改时，执行expensive计算。所以要用到useMemo，指定依赖值；
+- 使用useMemo来执行昂贵的计算，然后将计算值返回，并且将count作为依赖值传递进去。这样，就只会在count改变的时候触发expensive执行，在修改val的时候，返回上一次缓存的值。
+
+#### useCallback
+
+> useCallback返回缓存的函数
+
+用法:
+>const fnA = useCallback(fnB, [a])
+
+应用场景：
+>所有依赖本地状态或props来创建函数，需要使用到缓存函数的地方，都是useCallback的应用场景。
+
+例如：
+>使用场景是：有一个父组件，其中包含子组件，子组件接收一个函数作为props；通常而言，如果父组件更新了，子组件也会执行更新；
+>但是大多数场景下，更新是没有必要的，我们可以借助useCallback来返回函数，然后把这个函数作为props传递给子组件；这样，子组件就能避免不必要的更新。
 
 
+=====end two=====
+
+### useRef
+
+>useRef获取DOM元素和保存变量
+
+1. 用useRef获取React JSX中的DOM元素，获取后你就可以控制DOM的任何东西了。但是一般不建议这样来作，React界面的变化可以通过状态来控制。
+2. 用useRef来保存变量，这个在工作中也很少能用到，我们有了useContext这样的保存其实意义不大，但是这是学习，也要把这个特性讲一下。
+
+避免重新创建useRef()初始值
+
+用法一：获得焦点
+```
+function TextInputWithFocusButton() {
+  const inputEl = useRef(null);
+  const onButtonClick = () => {
+    // `current` points to the mounted text input element
+    inputEl.current.focus();
+  };
+  return (
+    <div>
+      <Input ref={iptEl} onChange={(e)=>setValue(e.target.value)} style={{width:'200px'}}/>
+      <Button onClick={onFocus}>Focus the input</Button>
+    <div/>
+  );
+}
+
+```
+用法二：赋值
+```
+const CountAlert = () => {
+    const [count, setCount] = useState(0)
+    const latestCount = useRef(count)
+    useEffect(() => {
+        // Set the mutable latest value
+        latestCount.current = count
+        setTimeout(() => {
+            // Read the mutable latest value
+            console.log(`模拟了class中的行为:you clicked ${latestCount.current} times`)
+        }, 300)
+    })
+}
+```
+用法三：判断
+``` 
+function Image(props) {
+  const ref = useRef(null);
+    // ✅ IntersectionObserver is created lazily once
+    function getObserver() {
+      if (ref.current === null) {
+        ref.current = 'new current';
+      }
+      return ref.current;
+    }
+   
+}
+```
+### useReducer
+>reducer其实就是一个函数，这个函数接收两个参数，一个是状态，一个用来控制业务逻辑的判断参数。
+
+查看 :
+1.HOOks to do List `/HooksDemo/index.js`
+2. `/HooksDemo/HooksTodo/ReducerCount.js`
+
+useReducer有三个参数(一般用到前两个)
+- 第一个参数：reducer纯函数
+- 第二个参数：state的默认值
+- 第三个参数：state的重置
 
 
+```
+const initialState = {
+    count: 0
+};
 
+function init(initialCount) {
+    return initialCount
+}
+
+function reducer(state, action) {
+    switch (action.type) {
+        case 'add':
+            return {count: state.count + 1};
+        case 'sub':
+            return {count: state.count - 1};
+        case 'reset':
+            return init(action.payload)
+        default:
+            break;
+    }
+}
+
+function ReducerCount({initialCount}) {
+    const [state, dispatch] = useReducer(reducer, initialState, init)
+    useEffect(()=>{
+        document.title = `You clicked ${state.count} times`;
+        return()=>{
+            document.title = `remove`;
+        }
+    },[state.count])
+
+    return (
+        <Fragment>
+            <h3 style={{color:'red'}}>一个js页面应用Reducer</h3>
+            <Button onClick={() => dispatch({type: 'add'})}>+</Button>
+            <span style={{margin: '0 20px'}}> Reducer 数字：{state.count}</span>
+            <Button onClick={() => dispatch({type: 'sub'})}>-</Button>
+            <Button onClick={() => dispatch({type: 'reset', payload: initialCount})}>重置</Button>
+        </Fragment>
+    )
+}
+
+export default ReducerCount;
+
+```
+
+
+### useReducer和useContext实现Redux功能
+
+1. useContext：可访问全局状态，避免一层层的传递状态。这符合Redux其中的一项规则，就是状态全局化，并能统一管理。
+2. useReducer：通过action的传递，更新复杂逻辑的状态，主要是可以实现类似Redux中的Reducer部分，实现业务逻辑的可行性。
+
+```
+import React, {createContext, useContext, useEffect, useReducer, useState} from "react";
+import {Button} from 'antd'
+
+const ParamsContext = createContext();
+
+const initState = {
+    name: 'mao',
+    permit: true
+}
+const reducer = (state = initState, action) => {
+    switch (action.type) {
+        case 'init':
+            return action.data;
+        case 'add':
+            return {
+                ...state,
+                ...action.data
+            }
+        default:
+            return state
+    }
+
+}
+
+export default function ReducerContext() {
+    const [data, dispatch] = useReducer(reducer, initState)
+    return (
+        <div className='container'>
+            <ParamsContext.Provider value={{data, dispatch}}>
+                <Child/>
+                <DeepChild/>
+            </ParamsContext.Provider>
+        </div>
+    )
+}
+
+
+function Child(props) {
+    //console.log(props,'props') //{dispatch: ƒ () data: {name: "miao"}}
+    const context = useContext(ParamsContext)
+    // console.log(context,'useContext')
+
+    const changePermit = () => {
+        context.dispatch({
+            type: 'add',
+            data: {
+                permit: !context.data.permit
+            }
+        })
+    }
+    return (
+        <div>
+            <p>Child</p>
+            <p>name:{context.data.name && context.data.name} </p>
+            <p>权限:{context.data.permit && context.data.permit ? '我是有权限的' : '我没有权限'} </p>
+            <Button onClick={changePermit}>开启用户权限</Button>
+        </div>
+    )
+}
+
+function DeepChild() {
+    const context = useContext(ParamsContext)
+    const [text, setText] = useState('没有权限')
+    useEffect(() => {
+        const permit = context.data.permit
+        permit ? setText('有权限') : setText('没有权限')
+    }, [text])
+
+    return (
+        <div>
+            静态值：{text}
+        </div>
+    )
+
+}
+```

@@ -152,7 +152,7 @@ export const NaviData = {
                 "code": "react",
                 "name": "react",
                 "orderSeq": 3,
-                "target": "/v2/syscope/react",
+                "target": "/v2/syscope/react/1024",
                 "handleRight": "HR_CUSTOMIZED_ROBOT;HR_TRIAL_GROUP",
                 "status": 1,
                 "parentId": "14bf0686-64b1-11e9-8723-f45c89c26dbf",

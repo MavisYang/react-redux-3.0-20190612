@@ -146,26 +146,37 @@ function SearchResults() {
     const [data, setData] = useState([])
     const [data1, setData1] = useState([])
 
-    const getFetchUrl = useCallback((query)=> {
-        return 'https://hn.algolia.com/api/v1/search?query=' + query;
-    },[])
+    // const getFetchUrl = useCallback((query)=> {
+    //     return 'https://hn.algolia.com/api/v1/search?query=' + query;
+    // },[])
 
     useEffect(() => {
-        console.log(1)
-        async function fetchData() {
-            const result = await axios(getFetchUrl('react'))
-            // console.log(result,'react')
-            setData(result.data.hits)
-        }
-        fetchData();
+        // console.log(1)
+        // async function fetchData() {
+        //     const result = await axios(getFetchUrl('react'))
+        //     // console.log(result,'react')
+        //     setData(result.data.hits)
+        // }
+        // fetchData();
+        //
+        // console.log(2)
+        // async function fetchData_redux() {
+        //     const result = await axios(getFetchUrl('redux'))
+        //     // console.log(result,'redux')
+        //     setData1(result.data.hits)
+        // }
+        // fetchData_redux()
 
-        console.log(2)
-        async function fetchData_redux() {
-            const result = await axios(getFetchUrl('redux'))
-            // console.log(result,'redux')
-            setData1(result.data.hits)
-        }
-        fetchData_redux()
+
+        fetchDataAxios('react').then(res=>{
+            console.log(1)
+            setData(res.hits)
+        })
+
+        fetchDataAxios('redux').then(res=>{
+            console.log(2)
+            setData1(res.hits)
+        })
     }, [])
 
 
@@ -177,7 +188,7 @@ function SearchResults() {
             }
             <h4>redux</h4>
             {
-                data.slice(0, 5).map((v, i) => <a style={{display:'block'}} href={v.url} target='_blank' key={i}>{v.title}</a>)
+                data1.slice(0, 5).map((v, i) => <a style={{display:'block'}} href={v.url} target='_blank' key={i}>{v.title}</a>)
             }
             <Parent/>
         </Fragment>

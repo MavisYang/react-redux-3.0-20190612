@@ -373,23 +373,23 @@ useLayoutEffect(()=>{
 可以直接在js中创建，也可以在公共js中创建
 ```
 //======3======
-import {AgeContext,ParamsContext} from './UseContexts'
-或者
-const AgeContext = createContext()
-function ChildAge() {
-    const age = useContext(AgeContext)
-    return(<h3>通过createContext和useContext实现父子组件的传递：{age}</h3>)
+创建
+const AgeContext = createContext() 
 
-}
-
-
+使用
 <AgeContext.Provider value={age} >
     <ChildAge/>
 </AgeContext.Provider>
+
+获取:引入后写一个CounterChildAge组件，只是显示上下文中的age变量代码如下：
+function ChildAge() {
+    const age = useContext(AgeContext)
+    return(<h3>通过createContext和useContext实现父子组件的传递：{age}</h3>)
+}
+
 ```
 ```
 {color: "blue", dispatch:f} // "useContext(ColorContext)"
-
 ```
 
 ### useReducer介绍和简单使用
@@ -467,10 +467,12 @@ const [count,setCount] = useReducer((state,action)=>{
 </div>
 ```
 **2019.10.16**
-### useReducer代替Redux
+### useReducer和useContext代替Redux功能
 
 1. useContext：可访问全局状态，避免一层层的传递状态。这符合Redux其中的一项规则，就是状态全局化，并能统一管理。
 2. useReducer：通过action的传递，更新复杂逻辑的状态，主要是可以实现类似Redux中的Reducer部分，实现业务逻辑的可行性。
+
+查看项目：`/HooksDemo/HooksTodo/ReducerContext/index.js`
 
 ### useMemo优化React Hooks程序性能
 1. useMemo主要用来解决使用React hooks产生的无用渲染的性能问题。
@@ -529,36 +531,36 @@ function Image(props) {
 
 ```js
 const a = useRef()
-    useEffect(()=>{
-        console.log(a,'useEffect')
-        document.title = `You clicked ${state.count} times`;
-        return()=>{
-            console.log(a,'end useEffect')
-            document.title = `remove`;
-        }
-    })
+useEffect(()=>{
+    console.log(a,'useEffect')
+    document.title = `You clicked ${state.count} times`;
+    return()=>{
+        console.log(a,'end useEffect')
+        document.title = `remove`;
+    }
+})
 
-    //=====8：useLayoutEffect====
-    useLayoutEffect(()=>{
-        console.log(a,'useLayoutEffect')
-        document.title = `You clicked ${state.count} times`;
-        return()=>{
-            console.log(a,'end useLayoutEffect')
-            document.title += `!!!`;
-        }
-    })
+//=====8：useLayoutEffect====
+useLayoutEffect(()=>{
+    console.log(a,'useLayoutEffect')
+    document.title = `You clicked ${state.count} times`;
+    return()=>{
+        console.log(a,'end useLayoutEffect')
+        document.title += `!!!`;
+    }
+})
 
-    console.log('更新Example',state.count)
-    
-    //====打印结果===
-    //更新Example 2
-    // ReducerCount.js:46 {current: input} "end useLayoutEffect"
-    // ReducerCount.js:43 {current: input} "useLayoutEffect"
-    // ReducerCount.js:37 {current: input} "end useEffect"
-    // ReducerCount.js:34 {current: input} "useEffect"
-    
-    //点击+或者-或者向input输入内容，会发现每次都会先进行 useEffect与useLayout的清理函数，再执行他们的初始函数。
-    // 并且发现useEffect的函数会在最后才执行，它会晚于包含它的父函数。
+console.log('更新Example',state.count)
+
+//====打印结果===
+//更新Example 2
+// ReducerCount.js:46 {current: input} "end useLayoutEffect"
+// ReducerCount.js:43 {current: input} "useLayoutEffect"
+// ReducerCount.js:37 {current: input} "end useEffect"
+// ReducerCount.js:34 {current: input} "useEffect"
+
+//点击+或者-或者向input输入内容，会发现每次都会先进行 useEffect与useLayout的清理函数，再执行他们的初始函数。
+// 并且发现useEffect的函数会在最后才执行，它会晚于包含它的父函数。
 
 
 ```
