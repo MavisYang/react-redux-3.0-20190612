@@ -5,7 +5,7 @@ import HOC from './HOC'
 import {Switch,Route} from "react-router";
 import {Link} from "react-router-dom";
 import {Button} from 'antd'
-const LazyCompoent = lazy(()=>import('./React_1028'))
+const LazyCompoent = lazy(()=>import('./React_1029'))
 
 const navList = [
     {
@@ -19,9 +19,9 @@ const navList = [
         path:'/v2/syscope/react/1025'
     },
     {
-        name:'React_1028(社区+博客)',
-        code:'React_1028',
-        path:'/v2/syscope/react/1028'
+        name:'React_1029(社区+博客)',
+        code:'React_1029',
+        path:'/v2/syscope/react/1029'
     },
 
 
@@ -35,8 +35,8 @@ const judgeByCodeFunc=()=>{
     }else if(window.location.pathname.includes('/v2/syscope/react/1025')){
         return 'React_1025'
     }
-    else if(window.location.pathname.includes('/v2/syscope/react/1028')){
-        return 'React_1028'
+    else if(window.location.pathname.includes('/v2/syscope/react/1029')){
+        return 'React_1029'
     }
     return null;
 }
@@ -53,7 +53,7 @@ export default function ReactScope(prop) {
                 })
             }
             <Switch>
-                <Route path={'/v2/syscope/react/1028'} render={(props)=><LazyCompoent {...props} actions={prop.actions}/>}/>
+                <Route path={'/v2/syscope/react/1029'} render={(props)=><LazyCompoent {...props} actions={prop.actions}/>}/>
                 <Route path={'/v2/syscope/react/1025'} render={(props)=><React_1025 {...props} actions={prop.actions}/>}/>
                 <Route path={'/v2/syscope/react/1024'} render={(props)=><React_1024 {...props} actions={prop.actions}/>}/>
             </Switch>
