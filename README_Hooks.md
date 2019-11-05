@@ -68,7 +68,8 @@ function createRows(props) {
 2. useEffect中定义的函数的执行不会阻碍浏览器更新视图，也就是说这些函数时异步执行的，而componentDidMount和componentDidUpdate中的代码都是同步执行的。
    个人认为这个有好处也有坏处吧，比如我们要根据页面的大小，然后绘制当前弹出窗口的大小，如果时异步的就不好操作了。
 3. useEffect 实现 componentWillUnmount生命周期函数
-4. useEffect的第二个参数：那到底要如何实现类似componentWillUnmount的效果那?这就需要请出useEffect的第二个参数，它是一个数组，数组中可以写入很多状态对应的变量，意思是当状态值发生变化时，我们才进行解绑。
+4. useEffect的第二个参数：那到底要如何实现类似componentWillUnmount的效果那?
+   这就需要请出useEffect的第二个参数，它是一个数组，数组中可以写入很多状态对应的变量，意思是当状态值发生变化时，我们才进行解绑。
    但是当传空数组[]时，就是当组件将被销毁时才进行解绑，这也就实现了componentWillUnmount的生命周期函数
 5. 开发者通过 useEffect 的第二个参数告诉 React 用到了哪些外部变量
 ```js

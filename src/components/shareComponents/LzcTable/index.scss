@@ -1,0 +1,78 @@
+@import 'styles/public.scss';
+
+.lzc-table {
+
+    .ant-table-content {
+        @include fontSize(13, 400);
+        color: #272E42;
+    }
+
+    .ant-table-thead>tr>th {
+        &:first-child{
+            padding: 0 24px;
+        }
+        background: #F7F8F9;
+        font-weight: 500;
+        line-height: 47px;
+        padding: 0 16px;
+        border-bottom:none;
+    }
+
+    .ant-table-tbody>tr:hover>td {
+        background: #F7F8F9;
+    }
+
+    .ant-table-tbody>tr.ant-table-row-selected td {
+        background: #ECF1FF;
+    }
+    .ant-table-tbody>tr>td {
+        &:first-child{
+            padding: 0 24px;
+        }
+        vertical-align: middle;
+        padding: 0 16px;
+        height: 60px;
+    }
+
+    // .ant-table-tbody>tr:hover {
+        // background: #F7F8F9;
+    // }
+
+    // .tableLoading {
+    //     min-height: 200px;
+    // }
+    .ant-table-placeholder {
+        color: #B9BCC5;
+    }
+
+    .ant-checkbox-indeterminate .ant-checkbox-inner:after {
+        background: #4173FF;
+    }
+    .ant-checkbox:hover .ant-checkbox-inner {
+        border-color: #4173FF;
+    }
+    .ant-checkbox-checked .ant-checkbox-inner {
+        background: #4173FF;
+        border-color: #4173FF;
+    }
+
+    .ant-spin-text{
+        color: #4173ff;
+    }
+    
+}
+
+.lzc-table-big{
+    .ant-table-tbody > tr > td{
+        height: 70px;
+    }
+}
+.lzc-table-small{
+    .ant-table-tbody > tr > td{
+        height: 40px;
+    }
+    .ant-table-placeholder {
+        height: 40px;
+        padding-top: 9px;
+    }
+}

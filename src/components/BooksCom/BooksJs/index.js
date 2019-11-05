@@ -57,6 +57,7 @@ export default function BooksJs(props) {
         <div className='container'>
             <JS_1101/>
             <JS_1104/>
+            <JS_1105/>
         </div>
     )
 
@@ -247,7 +248,7 @@ const JS_1104 = ()=>{
             console.log(i)//hello  world
         }
 
-       
+
 
 
 
@@ -280,4 +281,20 @@ const JS_1104 = ()=>{
         </Fragment>
     )
 
+}
+
+const JS_1105 =()=>{
+    useEffect(()=>{
+
+    },[])
+    return(
+        <Fragment>
+            <h3>面向对象与原型(2019.11.05)</h3>
+            <ul className='container'>
+               <li>
+
+               </li>
+            </ul>
+        </Fragment>
+    )
 }
