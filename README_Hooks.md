@@ -7,6 +7,12 @@
 - [useEffect完整指南](#https://overreacted.io/zh-hans/a-complete-guide-to-useeffect/)
 - [useMemo与useCallback使用指南](https://zhuanlan.zhihu.com/p/66166173)
 
+### 参考链接
+- [官网](https://reactjs.org/docs/hooks-reference.html)
+- [中文网](http://react.html.cn/docs/hooks-faq.html)
+- [一文看懂 react hooks](https://juejin.im/post/5d985deae51d4577f9285c2f)
+- [React Hooks的几个问题](https://juejin.im/post/5d9c5f935188251e3a06bbbb#heading-2)
+
 **2019.10.15**
 
 ### Hooks
@@ -28,8 +34,6 @@ useMemo: useCallback的变形
 useLayoutEffect: 类似componentDidMount/Update, componentWillUnmount
 useEffect: 类似于setState(state, cb)中的cb，总是在整个更新周期的最后才执行
 ```
-- [官网](https://reactjs.org/docs/hooks-reference.html)
-- [中文网](http://react.html.cn/docs/hooks-faq.html)
 
 #### useState
 >useState是react自带的一个hook函数，它的作用是用来声明状态变量。
@@ -209,6 +213,30 @@ const [count,setCount] = useReducer((state,action)=>{
     <Button onClick={()=>setCount({type: 'sub'})}>-</Button>
 </div>
 ```
+**2019.11.01**
+
+### useMemo 
+>useMemo 会「记住」一些值，同时在后续 render 时，将依赖数组中的值取出来和上一次记录的值进行比较，如果不相等才会重新执行回调函数，否则直接返回「记住」的值。
+
+- [问题三：该不该使用 useMemo？](https://juejin.im/post/5d9c5f935188251e3a06bbbb#heading-2)
+
+##### 一、应该使用 useMemo 的场景
+
+1. 保持引用相等
+    * 对于组件内部用到的 object、array、函数等，如果用在了其他 Hook 的依赖数组中，或者作为 props 传递给了下游组件，应该使用 useMemo。
+自定义 Hook 中暴露出来的 object、array、函数等，都应该使用 useMemo 。以确保当值相同时，引用不发生变化。
+使用 Context 时，如果 Provider 的 value 中定义的值（第一层）发生了变化，即便用了 Pure Component 或者 React.memo，仍然会导致子组件 re-render。这种情况下，仍然建议使用 useMemo 保持引用的一致性。
+
+2. 成本很高的计算
+
+    * 比如 cloneDeep 一个很大并且层级很深的数据
+
+##### 二、无需使用 useMemo 的场景
+
+1. 如果返回的值是原始值： string, boolean, null, undefined, number, symbol（不包括动态声明的 Symbol），一般不需要使用 useMemo。
+2. 仅在组件内部用到的 object、array、函数等（没有作为 props 传递给子组件），且没有用到其他 Hook 的依赖数组中，一般不需要使用 useMemo。
+
+
 **2019.10.16**
 ### useReducer代替Redux
 
@@ -229,8 +257,43 @@ const [count,setCount] = useReducer((state,action)=>{
 那么会带来较大的性能损耗。因此useMemo和useCallback就是解决性能问题的杀手锏。
 3. useMemo和useCallback都会在组件第一次渲染的时候执行，之后会在其依赖的变量发生改变时再次执行；并且这两个hooks都返回缓存的值，useMemo返回缓存的变量，useCallback返回缓存的函数。
 
-```js
+```
  const funcConst = useMemo(()=> handleFunc(name),[name])
+```
+```
+useEffect(()=>{
+    // MumSort()
+    return()=>{
+    }
+},[])
+const [values,setValues] = useState([0,3,2,7,4,8,1])
+const MumSort = ()=>{
+    values.sort((a,b)=>{
+        return a - b
+    })
+    // setValues(values)
+}
+console.log(values,'old values') //[0,3,2,7,4,8,1]
+useMemo(()=>MumSort(),[values]) //更新render,重新渲染
+console.log(values,'new values')//[0, 1, 2, 3, 4, 7, 8]
+
+//打印values的
+//[0, 3, 2, 7, 4, 8, 1] "old values"
+//[0, 1, 2, 3, 4, 7, 8] "new values"
+//[0, 1, 2, 3, 4, 7, 8] "===render"
+//应用useMemo之后重新渲染，不需要写在useEffect()中
+//[0, 1, 2, 3, 4, 7, 8] "old values"
+//[0, 1, 2, 3, 4, 7, 8] "new values"
+// [0, 1, 2, 3, 4, 7, 8] "===render"
+
+return (
+    <div>
+        {
+            console.log(values,'===render')
+        }
+        {values.map(v=><span key={v}>{v}</span>)}
+    </div>
+)
 ```
 
 ### useCallback

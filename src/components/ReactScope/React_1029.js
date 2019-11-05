@@ -9,13 +9,18 @@ export default function React_1029() {
     //虽然 React 在 DOM 渲染时会 diff 内容，只对改变部分进行修改，而不是整体替换，但却做不到对 Effect 的增量修改识别。
     // 因此需要开发者通过 useEffect 的第二个参数告诉 React 用到了哪些外部变量：
     useEffect(() => {
+        // console.log(count,'count===11')
+        // console.log('did')
         const timer = setInterval(() => {
+            // console.log(count,'count')
             // setCount(count+1)//需要依赖count
             setCount(c => c + 1)
         }, 1000)
 
         return () => {
+            // console.log('will')
             clearInterval(timer)
+            // setCount(10) //
         }
     }, [])
 
@@ -65,6 +70,7 @@ const CountAlert = () => {
             alert('You clicked on: ' + count)
         }, 3000)
     }
+
 
     return (
         <Fragment>

@@ -35,7 +35,7 @@ export default class React_1025 extends PureComponent {
                     showStatus &&<Modal  showStatus={showStatus}
                                          handleHideStatus={this.handleHideStatus}/>
                 }
-                <TheLifeCycle defaultColor={defaultColor}/>
+                {/*<TheLifeCycle defaultColor={defaultColor}/>*/}
                 <Button onClick={() => {
                     this.setState({
                         defaultColor: defaultColor === 'blue' ? 'red' : 'blue'
@@ -88,7 +88,7 @@ class TheLifeCycle extends Component {
 
 
     static getDerivedStateFromProps(nextProps, prevState) {
-        console.log('getDerivedStateFromProps',{nextProps, prevState})
+        // console.log('getDerivedStateFromProps',{nextProps, prevState})
         //nextProps: {defaultColor: "red"}
         //prevState: {currentColor: "blue"}
         if (nextProps.defaultColor !== prevState.currentColor) {

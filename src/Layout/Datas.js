@@ -46,74 +46,6 @@ export const NaviData = {
                 "selected": null,
                 "children": null
             },
-
-                // {
-            //     "id": "8a15960a-08bd-11e9-b215-4a0005ddfbf0",
-            //     "code": "GIScope",
-            //     "name": "微信群管理",
-            //     "orderSeq": 2,
-            //     "target": "/v2/gmscope/giscope",
-            //     "handleRight": "HR_CUSTOMIZED_ROBOT;HR_TRIAL_GROUP",
-            //     "status": 1,
-            //     "parentId": "44bf0686-64b1-11e9-8723-f45c89c26dbf",
-            //     "selected": null,
-            //     "children": null
-            // }, {
-            //     "id": "004a905c-8751-11e9-9fc8-f45c89c26dbf",
-            //     "code": "GFmanage",
-            //     "name": "好友管理",
-            //     "orderSeq": 3,
-            //     "target": "/v2/gmscope/gfmanage",
-            //     "handleRight": "HR_CUSTOMIZED_ROBOT;HR_TRIAL_GROUP",
-            //     "status": 1,
-            //     "parentId": "44bf0686-64b1-11e9-8723-f45c89c26dbf",
-            //     "selected": null,
-            //     "children": null
-            // }, {
-            //     "id": "0059ee4e-8751-11e9-9fc8-f45c89c26dbf",
-            //     "code": "WMscope",
-            //     "name": "微信号管理",
-            //     "orderSeq": 4,
-            //     "target": "/v2/gmscope/wmscope",
-            //     "handleRight": "HR_CUSTOMIZED_ROBOT;HR_TRIAL_GROUP",
-            //     "status": 1,
-            //     "parentId": "44bf0686-64b1-11e9-8723-f45c89c26dbf",
-            //     "selected": null,
-            //     "children": null
-            // }, {
-            //     "id": "44cb530a-64b1-11e9-8723-f45c89c26dbf",
-            //     "code": "Welcome",
-            //     "name": "自动欢迎",
-            //     "orderSeq": 5,
-            //     "target": "/v2/gmscope/welcome",
-            //     "handleRight": "HR_CUSTOMIZED_ROBOT;HR_TRIAL_GROUP",
-            //     "status": 1,
-            //     "parentId": "44bf0686-64b1-11e9-8723-f45c89c26dbf",
-            //     "selected": null,
-            //     "children": null
-            // }, {
-            //     "id": "95e5b7e4-2370-11e9-954e-f45c89c26dbf",
-            //     "code": "ARScope",
-            //     "name": "自动回复",
-            //     "orderSeq": 6,
-            //     "target": "/v2/gmscope/arscope",
-            //     "handleRight": "HR_CUSTOMIZED_ROBOT;HR_TRIAL_GROUP",
-            //     "status": 1,
-            //     "parentId": "44bf0686-64b1-11e9-8723-f45c89c26dbf",
-            //     "selected": null,
-            //     "children": null
-            // }, {
-            //     "id": "44d9f004-64b1-11e9-8723-f45c89c26dbf",
-            //     "code": "Protect",
-            //     "name": "违规监测",
-            //     "orderSeq": 7,
-            //     "target": "/v2/gmscope/protect",
-            //     "handleRight": "HR_CUSTOMIZED_ROBOT;HR_TRIAL_GROUP",
-            //     "status": 1,
-            //     "parentId": "44bf0686-64b1-11e9-8723-f45c89c26dbf",
-            //     "selected": null,
-            //     "children": null
-            // }
             ]
         },
         {
@@ -195,75 +127,54 @@ export const NaviData = {
                 "selected": null,
                 "children": null
             },
-                //{
-            //     "id": "95e5b7e4-2370-11e9-954e-f45c89c26dbf",
-            //     "code": "ARScope",
-            //     "name": "自动回复",
-            //     "orderSeq": 6,
-            //     "target": "/v2/gmscope/arscope",
+            ]
+        },
+        {
+            "id": "e0e8d720-a3c8-11e9-bb41-f45c89c26dbf",
+            "code": "Booksscope",
+            "name": "书籍",
+            "orderSeq": 2,
+            "target": "/v2/bookscope",
+            "handleRight": "HR_CUSTOMIZED_ROBOT;HR_TRIAL_GROUP",
+            "status": 1,
+            "selected": null,
+            "children": [{
+                "id": "e0f847dc-a3c8-11e9-bb41-f45c89c26dbf",
+                "code": "Booksscope",
+                "name": "js忍者秘籍",
+                "orderSeq": 1,
+                "target": "/v2/bookscope",
+                "handleRight": "HR_CUSTOMIZED_ROBOT;HR_TRIAL_GROUP",
+                "status": 1,
+                "parentId": "e0e8d720-a3c8-11e9-bb41-f45c89c26dbf",
+                "selected": null,
+                "children": null
+            },
+            //     {
+            //     "id": "e1027d88-a3c8-11e9-bb41-f45c89c26dbf",
+            //     "code": "Customertag",
+            //     "name": "客户标签",
+            //     "orderSeq": 2,
+            //     "target": "/v2/cmscope/customertag",
             //     "handleRight": "HR_CUSTOMIZED_ROBOT;HR_TRIAL_GROUP",
             //     "status": 1,
-            //     "parentId": "44bf0686-64b1-11e9-8723-f45c89c26dbf",
+            //     "parentId": "e0e8d720-a3c8-11e9-bb41-f45c89c26dbf",
             //     "selected": null,
             //     "children": null
             // }, {
-            //     "id": "44d9f004-64b1-11e9-8723-f45c89c26dbf",
-            //     "code": "Protect",
-            //     "name": "违规监测",
-            //     "orderSeq": 7,
-            //     "target": "/v2/gmscope/protect",
+            //     "id": "e10ccfae-a3c8-11e9-bb41-f45c89c26dbf",
+            //     "code": "Customergroup",
+            //     "name": "客户分组",
+            //     "orderSeq": 3,
+            //     "target": "/v2/cmscope/customergroup",
             //     "handleRight": "HR_CUSTOMIZED_ROBOT;HR_TRIAL_GROUP",
             //     "status": 1,
-            //     "parentId": "44bf0686-64b1-11e9-8723-f45c89c26dbf",
+            //     "parentId": "e0e8d720-a3c8-11e9-bb41-f45c89c26dbf",
             //     "selected": null,
             //     "children": null
             // }
             ]
         },
-        // {
-        //     "id": "e0e8d720-a3c8-11e9-bb41-f45c89c26dbf",
-        //     "code": "Cmscope",
-        //     "name": "客户",
-        //     "orderSeq": 2,
-        //     "target": "/v2/cmscope",
-        //     "handleRight": "HR_CUSTOMIZED_ROBOT;HR_TRIAL_GROUP",
-        //     "status": 1,
-        //     "selected": null,
-        //     "children": [{
-        //         "id": "e0f847dc-a3c8-11e9-bb41-f45c89c26dbf",
-        //         "code": "Cmscopemanage",
-        //         "name": "客户管理",
-        //         "orderSeq": 1,
-        //         "target": "/v2/cmscope",
-        //         "handleRight": "HR_CUSTOMIZED_ROBOT;HR_TRIAL_GROUP",
-        //         "status": 1,
-        //         "parentId": "e0e8d720-a3c8-11e9-bb41-f45c89c26dbf",
-        //         "selected": null,
-        //         "children": null
-        //     }, {
-        //         "id": "e1027d88-a3c8-11e9-bb41-f45c89c26dbf",
-        //         "code": "Customertag",
-        //         "name": "客户标签",
-        //         "orderSeq": 2,
-        //         "target": "/v2/cmscope/customertag",
-        //         "handleRight": "HR_CUSTOMIZED_ROBOT;HR_TRIAL_GROUP",
-        //         "status": 1,
-        //         "parentId": "e0e8d720-a3c8-11e9-bb41-f45c89c26dbf",
-        //         "selected": null,
-        //         "children": null
-        //     }, {
-        //         "id": "e10ccfae-a3c8-11e9-bb41-f45c89c26dbf",
-        //         "code": "Customergroup",
-        //         "name": "客户分组",
-        //         "orderSeq": 3,
-        //         "target": "/v2/cmscope/customergroup",
-        //         "handleRight": "HR_CUSTOMIZED_ROBOT;HR_TRIAL_GROUP",
-        //         "status": 1,
-        //         "parentId": "e0e8d720-a3c8-11e9-bb41-f45c89c26dbf",
-        //         "selected": null,
-        //         "children": null
-        //     }]
-        // },
         // {
         //     "id": "44eb1a64-64b1-11e9-8723-f45c89c26dbf",
         //     "code": "QunFa",

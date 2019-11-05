@@ -17,6 +17,8 @@
 - 🤔 为什么有时候会出现无限重复请求的问题？
 - 🤔 为什么有时候在effect里拿到的是旧的state或prop？
 
+(结论：useEffect的不作为componentDidUnmount的话，传入第二个参数时一定注意：第二个参数不能为引用类型，引用类型比较不出来数据的变化，会造成死循环)
+
 > useEffect会捕获 props和state。所以即便在回调函数里，你拿到的还是初始的props和state。
 
 **问题：怎么理解拿到的是初始的props和state，因为打印出来的count是在变化的**

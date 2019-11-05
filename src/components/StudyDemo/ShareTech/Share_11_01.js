@@ -66,6 +66,19 @@ const CountAlert = () => {
         }, 3000)
     }
 
+
+    //======useState()中state定义的初始值类型和setState的类型要一致！===
+    const [initType,setType] = useState([1])
+    function changTypes() {
+        // console.log(initType,'initType---1')//初始值是个字符串：init
+        // setType({name:1}) //set一个对象，是不成功的，必须要匹配定义的类型
+        // console.log(initType,'initType---2') //返回：init
+        console.log(initType,'initType---1')//初始值是个字符串：[1]
+        setType('2')
+        console.log(initType,'initType---2') //返回：[1]
+
+    }
+
     return (
         <Fragment>
             <div>You clicked {count} times</div>
@@ -80,8 +93,7 @@ const CountAlert = () => {
                 在componentDidUpdate中，每次打印输出都是5<br/>
                 想在effect的回调函数里读取最新的值而不是捕获的值。最简单的实现方法是使用refs.
             </div>
-
-
+            <Button onClick={changTypes}>改变state的类型值</Button>
         </Fragment>
     )
 }

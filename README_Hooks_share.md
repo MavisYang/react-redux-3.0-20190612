@@ -37,6 +37,20 @@ const [state,setState] = useState('');
 3.参数
 >useState接收的参数是状态的初始值，它返回一个数组，这个数组的第0位是当前的状态值，第1位是可以改变状态值的方法函数。
 
+**注意：state定义的初始值类型和setState的类型要一致！**
+
+```js
+const [initType,setType] = useState([1])
+function changTypes() {
+    // console.log(initType,'initType---1')//初始值是个字符串：init
+    // setType({name:1}) //set一个对象，是不成功的，必须要匹配定义的类型
+    // console.log(initType,'initType---2') //返回：init
+    console.log(initType,'initType---1')//初始值是个字符串：[1]
+    setType('2')
+    console.log(initType,'initType---2') //返回：[1]
+
+}
+```
 #### useEffect
 1.定义
 >useEffect类似于setState(state, cb)中的cb，总是在整个更新周期的最后才执行,(特别要注意这句话：DOM在渲染完了之后调用effect)
@@ -133,6 +147,36 @@ useEffect(() => {
 
 欲知后事请听下回分解😊～
 
+#### useContext
+1. 定义
+>useContext，可访问全局状态，避免一层层的传递状态,可以帮助我们跨越组件层级直接传递变量，实现共享。
+
+>需要注意的是useContext和redux的作用是不同的，一个解决的是组件之间值传递的问题，一个是应用中统一管理状态的问题，但通过和useReducer的配合使用，可以实现类似Redux的作用。
+
+2. 应用
+
+(1) `export const AgeContext = createContext()` 创建context
+
+(2) `<AgeContext.Provider value={age} >
+         <ChildAge/>
+     </AgeContext.Provider>`  传递context
+
+(3) `const age = useContext(AgeContext)` 引用context
+
+
+**案例**
+```
+const AgeContext = createContext()
+<AgeContext.Provider value={age} >
+    <ChildAge/>
+</AgeContext.Provider>
+
+function ChildAge() {
+    const age = useContext(AgeContext)
+    return(<h3>通过createContext和useContext实现父子组件的传递：{age}</h3>)
+}
+```
+
 额外将一点：
 
 #### useLayoutEffect
@@ -175,33 +219,18 @@ console.log('更新Example',state.count)
 
 ```
 
+### 分享后的总结
+今天做了hooks的分享，再次感觉到了自己的缺点，不会说，尤其是话术语。
+提到问题没法回答或者提到的问题：
+1. useState()中state定义的初始值类型和setState的类型要一致！
+2. Effects中依赖多的话怎么办？
+3. useEffect会出现无限循环
+4. 每次渲染useEffect都会被调用
+5. deps依赖过多怎么办？如果依赖数组依赖了过多东西，可能导致代码难以维护
+
 === end one=====
 
 **2019.10.30**
-
-#### useContext
-1. 定义
->useContext，可访问全局状态，避免一层层的传递状态,可以帮助我们跨越组件层级直接传递变量，实现共享。
-
->需要注意的是useContext和redux的作用是不同的，一个解决的是组件之间值传递的问题，一个是应用中统一管理状态的问题，但通过和useReducer的配合使用，可以实现类似Redux的作用。
-
-2. 应用
-
-(1) `export const AgeContext = createContext()` 创建context
-
-(2) `const age = useContext(AgeContext)` 引用context
-
-**案例**
-```
-const AgeContext = createContext()
-function ChildAge(props) {
-    console.log('ChildAge',props)
-    const age = useContext(AgeContext)
-    return(<h3>通过createContext和useContext实现父子组件的传递：{age}</h3>)
-
-}
- <ChildAge age={18}/>
-```
 
 #### useCallback 和 useMemo
 
@@ -214,6 +243,8 @@ function ChildAge(props) {
 
 #### useMemo 
 >useMemo返回缓存的变量
+
+>useMemo 会「记住」一些值，同时在后续 render 时，将依赖数组中的值取出来和上一次记录的值进行比较，如果不相等才会重新执行回调函数，否则直接返回「记住」的值。
 
 用法：
 >const fnA = useMemo(fnB, [a])
@@ -256,6 +287,8 @@ function WithoutMemo() {
 - 我们只要在count的值修改时，执行expensive计算。所以要用到useMemo，指定依赖值；
 - 使用useMemo来执行昂贵的计算，然后将计算值返回，并且将count作为依赖值传递进去。这样，就只会在count改变的时候触发expensive执行，在修改val的时候，返回上一次缓存的值。
 
+
+- [问题三：该不该使用 useMemo？](https://juejin.im/post/5d9c5f935188251e3a06bbbb#heading-2)
 #### useCallback
 
 > useCallback返回缓存的函数

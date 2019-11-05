@@ -50,8 +50,34 @@ function WithoutMemo() {
     },[count])
     set.add(callback)
 
+    const [values,setValues] = useState([0,3,2,7,4,8,1])
+    const MumSort = ()=>{
+        values.sort((a,b)=>{
+            return a - b
+        })
+        // setValues(values)
+    }
+    //console.log(values,'old values') //[0,3,2,7,4,8,1]
+    useMemo(()=>MumSort(),[values]) //更新render,重新渲染
+    //console.log(values,'new values')//[0, 1, 2, 3, 4, 7, 8]
+
+    //打印values的
+    //[0, 3, 2, 7, 4, 8, 1] "old values"
+    //[0, 1, 2, 3, 4, 7, 8] "new values"
+    //[0, 1, 2, 3, 4, 7, 8] "===render"
+    //应用useMemo之后重新渲染，不需要写在useEffect()中
+    //[0, 1, 2, 3, 4, 7, 8] "old values"
+    //[0, 1, 2, 3, 4, 7, 8] "new values"
+    // [0, 1, 2, 3, 4, 7, 8] "===render"
+
 
     return <div>
+        <div>
+            {
+                //console.log(values,'===render')
+            }
+            排序：{values.map(v=><span key={v}>{v}</span>)}
+        </div>
         <h4>{count}-{val}-{expensive}</h4>
         <h4>set.size:{set.size}</h4>
         <div>
@@ -59,9 +85,6 @@ function WithoutMemo() {
             <Input style={{width:'200px',marginLeft:'10px'}} value={val} onChange={event => setValue(event.target.value)}/>
         </div>
         <Child callback={callback} countProps={count}/>
-
-
-
     </div>;
 }
 

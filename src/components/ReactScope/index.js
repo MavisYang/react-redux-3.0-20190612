@@ -29,10 +29,6 @@ const navList = [
         code:'React_1030',
         path:'/v2/syscope/react/1030'
     },
-
-
-
-
 ]
 
 const judgeByCodeFunc=()=>{
