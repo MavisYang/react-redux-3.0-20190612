@@ -11,8 +11,6 @@ const optionsArray = [
     {label: '发送状态', value: '6', checked: false}
 ]
 
-
-
 export default function TableDemo(props){
     const [options,setOptions] = useState(optionsArray)
     const [defaultValue,setDefaultValue] = useState(options.filter(v=>v.checked).map(v=>v.value))

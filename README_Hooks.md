@@ -12,6 +12,7 @@
 - [中文网](http://react.html.cn/docs/hooks-faq.html)
 - [一文看懂 react hooks](https://juejin.im/post/5d985deae51d4577f9285c2f)
 - [React Hooks的几个问题](https://juejin.im/post/5d9c5f935188251e3a06bbbb#heading-2)
+- [React Hooks 你真的用对了吗？](https://juejin.im/post/5d9c5f935188251e3a06bbbb#heading-1)
 
 **2019.10.15**
 

@@ -1,58 +1,6 @@
 import React, {Component, Fragment, useCallback, useEffect, useLayoutEffect, useMemo, useState} from "react";
-import {Button} from 'antd'
 
-// export default class BooksJs extends Component {
-//     state = {
-//         values: [0, 3, 2, 7, 4, 8, 1]
-//     }
-//
-//     componentDidMount() {
-//         this.MumSort()
-//     }
-//
-//
-//     MumSort = () => {
-//         let newV = this.state.values.sort((a, b) => {
-//             return a - b
-//         })
-//         console.log(newV, 'newV')
-//         this.setState({
-//             values: newV
-//         })
-//     }
-//
-//
-//     render() {
-//
-//         const {values} = this.state
-//         console.log(values, 'render')
-//         return (
-//             <div>
-//                 {
-//                     console.log(values, '===render')
-//                 }
-//                 {
-//
-//                     values.map(v => <span key={v}>{v}</span>)
-//                 }
-//             </div>
-//         )
-//     }
-// }
-
-export default function BooksJs(props) {
-
-    useEffect(()=>{
-        // console.log(useless(getText) === text)
-        // console.assert(useless(getText) === text)
-        // console.log('1')
-
-        // MumSort()
-        return()=>{
-            console.log(2)
-        }
-    },[])
-
+export default function BooksJs() {
     return(
         <div className='container'>
             <JS_1101/>
@@ -286,15 +234,84 @@ const JS_1104 = ()=>{
 const JS_1105 =()=>{
     useEffect(()=>{
 
+        const array= [1,2,3,4]
+        const reducer = (accumulator, currentValue)=>accumulator+currentValue
+
+        console.log(array.reduce(reducer),'reduce')
+
+
+        const m = new Map()
+        const o = {p:'hello worrd'}
+        m.set(o,'content')
+        console.log(m.set(o,'content'))//key: {p: "hello worrd"} value: "content"
+
+        console.log(m.has(o))
+        console.log(m.delete(o))
+        console.log(m.has(o))
+
+        //箭头函数和对象字面量
+        const numbers = [1,2,3,4]
+        let a = numbers.map(v=>({value:v}))
+        console.log({numbers,a},'numbers')
+
+        let set  = new Set()
+        set.add([1,2,3].join(','))
+        set.add([1,2,3])
+        console.log(set,set.size,set.length) //size :2 length:undefined
+
+        const map = []
+
+
     },[])
     return(
         <Fragment>
-            <h3>面向对象与原型(2019.11.05)</h3>
+            <h3>数组常用操作(2019.11.05)</h3>
             <ul className='container'>
-               <li>
-
-               </li>
+                <li>MDN链接:https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array</li>
+                <li>
+                    遍历数组(forEach())<br/>
+                    forEach() 方法对数组的每个元素执行一次提供的函数。
+                </li>
+                <li>
+                    基于现有的数组元素映射创建新数组(映射数组：map()) <br/>
+                    map() 方法创建一个新数组，其结果是该数组中的每个元素都调用一个提供的函数后返回的结果。
+                </li>
+                <li>
+                    验证数组原色是否匹配指定的条件（测试数组元素：every()和some()） <br/>
+                    every() 方法测试一个数组内的所有元素是否都能通过某个指定函数的测试。它返回一个布尔值。<br/>
+                    some() 方法测试数组中是不是至少有1个元素通过了被提供的函数测试。它返回的是一个Boolean类型的值。 <br/>
+                </li>
+                <li>
+                    查找特定数组元素:find()和filter(),includes()<br/>
+                    find() 方法返回数组中满足提供的测试函数的第一个元素的值。否则返回 undefined。 <br/>
+                    filter() 方法创建一个新数组, 其包含通过所提供函数实现的测试的所有元素。 <br/>
+                    includes() 方法用来判断一个数组是否包含一个指定的值，根据情况，如果包含则返回 true，否则返回false。
+                </li>
+                <li>
+                    聚合数组，基于数组元素计算:reduce()<br/>
+                    reduce() 方法对数组中的每个元素执行一个由您提供的reducer函数(升序执行)，将其结果汇总为单个返回值。
+                </li>
+                <li>（两个数组遍历时，可以一个map,一个find）</li>
+                <li>
+                    查找数组索引:indexOf(),lasIndexOf(),findIndex()
+                </li>
+                <li>
+                    数组排序：sort() <br/>
+                    array.sort((a,b)=>a - b)
+                </li>
+                <li>
+                    {Array([1,2]).map(v=><span key={v}>{v},</span>)}
+                </li>
             </ul>
+            <h3>Map和Set(2019.11.05)</h3>
+            <ul>
+                <li>
+                    <h4>箭头函数和对象字面量</h4>
+                </li>
+            </ul>
+            <h3>export导出/import导入(2019.11.05)</h3>
         </Fragment>
     )
 }
+
+export {JS_1104,JS_1105}

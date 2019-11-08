@@ -1,8 +1,9 @@
 
 **2019/10/21**
-## CSS技巧
+## CSS小技巧
 - [CSS 专业技巧](https://github.com/AllThingsSmitty/css-protips/tree/master/translations/zh-CN)
 - [提高幸福感的 9 个 CSS 技巧](https://mp.weixin.qq.com/s/id_n8SO4nNazzGK7H6BPyg)
+- [你未必知道的49个CSS知识点](https://juejin.im/post/5d3eca78e51d4561cb5dde12)
 
 ### [animate.css](https://daneden.github.io/animate.css/)
 
