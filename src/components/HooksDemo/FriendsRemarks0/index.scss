@@ -1,0 +1,165 @@
+@import "styles/public.scss";
+
+.mm_setRemarks_box {
+  position: relative;
+  width: 190px;
+  background: #ffffff;
+  box-shadow: 0px 4px 8px 0px rgba(233, 235, 238, 1), 0px 2px 2px 0px rgba(233, 235, 238, 1);
+  color: #5E6576;
+  @extend %font-13px;
+  padding-bottom: 10px;
+
+  &::after {
+    content: '';
+    width: 10px;
+    height: 10px;
+    background: #ffffff;
+    position: absolute;
+    top: 12px;
+    left: 0;
+    transform: translateX(-50%) rotate(45deg);
+  }
+
+  .mm_setRemarks_item {
+    height: 32px;
+    line-height: 32px;
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+
+    &.active{
+      background:  #ECF1FF;
+    }
+
+    &:first-child {
+      margin-bottom: 4px;
+      border-bottom: 1px solid #F0F1F3;
+      height: 42px;
+      line-height: 42px;
+    }
+
+    .remarks_circle {
+      margin-left: 16px;
+      margin-right: 16px;
+    }
+  }
+
+  .sr_circle,.sr_circle_selected{
+    @include widthHight(16, 16);
+    margin-left: 2px;
+  }
+  .sr_circle_selected {
+    @extend %iconGmV3;
+    background-position: -361px -159px;
+
+  }
+
+}
+
+.EditRemarks {
+  width: 308px;
+  height: 428px;
+}
+
+
+.remarks_circle {
+  @include widthHight(10, 10);
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.remarks_circle {
+  position: relative;
+  margin-left: 8px;
+  cursor: pointer;
+
+  &:hover .remarks_name {
+    display: inline-block;
+  }
+}
+
+.remarks_circle_0 {
+  background: #ffffff;
+  border: 1px solid #B9BCC5;
+}
+
+.mm_remarks_filter {
+  color: #485767;
+  @extend %font-13px;
+
+
+  .remarks_circle_selected {
+    @include widthHight(12, 12);
+  }
+
+  .rf_circle_selected {
+    @include widthHight(6, 6);
+    @extend %iconGmV3;
+    background-position: -377px -159px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 888;
+    display: inline-block;
+  }
+
+
+  .remarks_name {
+    display: none;
+    padding: 6px 12px;
+    background: #434A5F;
+    position: absolute;
+    transition: all .3s ease;
+    font-size: 13px;
+    color: #FFFFFF;
+    border-radius: 4px;
+    white-space: nowrap;
+    z-index: 999999;
+    left: 50%;
+    bottom: 18px;
+    transform: translate(-50%);
+
+
+    &::after {
+      content: '';
+      width: 10px;
+      height: 10px;
+      background: #434A5F;
+      position: absolute;
+      left: 50%;
+      bottom: -3px;
+      transform: translateX(-50%) rotate(135deg);
+    }
+  }
+}
+
+
+//编辑
+.mm_editRemarks {
+  height: 308px;
+  display: flex;
+  flex-direction: column;
+  padding-left: 40px;
+  padding-right: 40px;
+
+  .input_row {
+    flex: none;
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+
+    &:first-child {
+      margin-top: 32px;
+    }
+  }
+
+  .remarks_circle{
+    margin-left: 0;
+  }
+
+  .input_row_input {
+    margin-left: 13px;
+  }
+}

@@ -3,6 +3,7 @@ import HooksTodo from "./HooksTodo";
 import DragAndDrop from './DragAndDrop'
 import TodoList from "./TodoList";
 import InterScroll from './InterScroll'
+import RemarksClass from './FriendsRemarks0/RemarksClass'
 import './index.scss'
 
 export default class HooksDemo extends Component{
@@ -12,12 +13,16 @@ export default class HooksDemo extends Component{
             <div className='container'>
                 <TodoList actions={actions} todosReducer={todosReducer}/>
                 <HooksTodo actions={actions} todosReducer={todosReducer}/>
+                <RemarksClass/>
                 <DragAndDrop/>
                 <InterScroll list={MY_ENDLESS_LIST} height={195}/>
+
             </div>
         )
     }
 }
+
+
 
 
 const MY_ENDLESS_LIST = [

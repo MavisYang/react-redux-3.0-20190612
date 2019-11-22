@@ -13,16 +13,16 @@ export default function React_1029() {
         // console.log('did')
         const timer = setInterval(() => {
             // console.log(count,'count')
-            // setCount(count+1)//需要依赖count
-            setCount(c => c + 1)
+            setCount(count+1)//需要依赖count
+            // setCount(c => c + 1)
         }, 1000)
 
         return () => {
-            // console.log('will')
+            // console.log('clearInterval')
             clearInterval(timer)
             // setCount(10) //
         }
-    }, [])
+    }, [count])
 
 
     //如果非要把 Function 写在 Effect 外面呢？就用 useCallback 吧！
@@ -144,9 +144,9 @@ function ReducerCounter({step}) {
     )
 }
 
-// function getFetchUrl(query) {
-//     return 'https://hn.algolia.com/api/v1/search?query=' + query;
-// }
+function getFetchUrl2(query) {
+    return 'https://hn.algolia.com/api/v1/search?query=' + query;
+}
 function SearchResults() {
 
     const [data, setData] = useState([])
@@ -165,7 +165,7 @@ function SearchResults() {
         // const result = axios.get(getFetchUrl('react')).then(res=>{
         //     setData(res.data.hits)
         // })
-        // const result2 = axios.get(getFetchUrl('redux')).then(res=>{
+        // const result2 = axios.get(getFetchUrl2('redux')).then(res=>{
         //     setData1(res.data.hits)
         // })
 

@@ -1,0 +1,58 @@
+
+.mm_previewGallery {
+  position: relative;
+  left: 371px;
+  top: 266px;
+  width: 672px;
+  height: 616px;
+  background: #fff;
+  box-shadow: 0px 4px 8px 0px rgba(240, 241, 243, 1), 0px 4px 10px 0px rgba(212, 215, 222, 1);
+  border-radius: 4px;
+  z-index: 999;
+
+  .pg_title {
+    height: 66px;
+    line-height: 66px;
+    border-bottom: 1px solid #D4D7DE;
+    padding-left: 40px;
+    color: #272E42;
+    font-size: 20px;
+    font-family: "PingFang SC";
+    font-weight: 400;
+  }
+
+  .pd_content {
+    height: calc(100% - 67px);
+    overflow: scroll;
+    padding: 36px 40px 19px;
+  }
+
+  .pd_imgBox {
+    width: 136px;
+    height: 230px;
+    background: rgba(240, 241, 243, 1);
+    border-radius: 4px;
+    padding: 8px;
+    box-sizing: border-box;
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 17px;
+    margin-right: 16px;
+    position: relative;
+
+
+    &:nth-child(4n) {
+      margin-right: 0;
+    }
+
+    .pd_img {
+      max-width: 120px;
+      max-height: 214px;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+}

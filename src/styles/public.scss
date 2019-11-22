@@ -9,6 +9,12 @@ $gray: #B5BDC6;
 $gray-bg: #f0f1f3;
 $img-path: '';
 
+
+%font-13px {
+  font-family: "PingFang SC";
+  font-weight: 400;
+  font-size: 13px;
+}
 // icon-v3
 %iconPlV3 {
   background: url(#{$img-path}/images/iconV3_1/icon-pl-v3.png) no-repeat;

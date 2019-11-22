@@ -1,0 +1,20 @@
+@import 'styles/public.scss';
+
+.lzc-editModalBox {
+    box-shadow: 0px 4px 12px 0px #5e6576;
+    border-radius: 4px;
+
+    .title {
+        font-size: 20px;
+        color: #272e42;
+        height: 66px;
+        line-height: 65px;
+        text-indent: 40px;
+        border-bottom: 1px solid #d4d7de;
+    }
+
+    .buttonArea {
+        height: 53px;
+        border-top: 1px solid #d4d7de;
+    }
+}

@@ -54,7 +54,7 @@ function changTypes() {
 #### useEffect
 1.定义
 >useEffect类似于setState(state, cb)中的cb，总是在整个更新周期的最后才执行,(特别要注意这句话：DOM在渲染完了之后调用effect)
->useEffect函数用来代替生命周期函数(componentDidMount,componentDidUpdate,componentWillUnmount)
+>可以将useEffect函数看做componentDidMount,componentDidUpdate,componentWillUnmount这三个生命周期函数的组合
 
 2.应用
 `useEffect(fn, [])`

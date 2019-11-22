@@ -28,6 +28,40 @@ code {
   height: 100%;
 }
 
+input[type="text"], input[type="password"], input[type="number"], textarea {
+  -webkit-appearance: none;
+}
+
+input::-webkit-input-placeholder {
+  color: #B9BCC5;
+  font-family: PingFangSC-Regular;
+}
+
+input::-moz-input-placeholder {
+  color: #B9BCC5;
+  font-family: PingFangSC-Regular;
+}
+
+input::-o-input-placeholder {
+  color: #B9BCC5;
+  font-family: PingFangSC-Regular;
+}
+
+textarea::-webkit-input-placeholder {
+  color: #B9BCC5;
+  font-family: 'PingFangSC-light';
+}
+
+textarea::-moz-input-placeholder {
+  color: #B9BCC5;
+  font-family: 'PingFangSC-light';
+}
+
+textarea::-o-input-placeholder {
+  color: #B9BCC5;
+  font-family: 'PingFangSC-light';
+}
+
 //antd修改的css代码
 .ant-btn{
   line-height: normal !important;
@@ -47,4 +81,72 @@ code {
 
 .ipt_d{
   width: 200px;
+}
+
+.modalWrapper {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(39, 46, 66, .5);
+  z-index: 999;
+  overflow: auto;
+}
+
+.modalWrapper .modalBox {
+  background: #FFFFFF;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.modalWrapper .modalBox .closeBtn {
+  width: 36px;
+  height: 36px;
+  position: absolute;
+  right: 11px;
+  top: 10px;
+  cursor: pointer;
+}
+
+.modalWrapper .modalBox .closeBtn::before {
+  content: '';
+  display: block;
+  width: 36px;
+  height: 36px;
+  position: absolute;
+  //background-size: 673px 448px;
+  //background-position: -547px -28px;
+  z-index: 2;
+}
+
+.modalWrapper .modalBox .closeBtn::after {
+  content: '';
+  display: block;
+  width: 28px;
+  height: 28px;
+  position: absolute;
+  left: 4px;
+  top: 4px;
+  transform: scale(0);
+  background: #f0f1f3;
+  /* transition: all ease-in-out .15s; */
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.modalWrapper .modalBox .closeBtn:hover::after {
+  transform: scale(1);
+}
+
+.modalWrapper .modalBox .modalTitle {
+  height: 66px;
+  font-size: 20px;
+  font-family: PingFangSC-Regular;
+  font-weight: 400;
+  color: #272e42;
+  padding: 20px 0 0 40px;
+  border-bottom: 1px solid #d4d7de;
 }

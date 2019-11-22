@@ -9,10 +9,25 @@
 
 ### 参考链接
 - [官网](https://reactjs.org/docs/hooks-reference.html)
+- [hooks的正确用法](https://frontarm.com/james-k-nelson/react-hooks-intuition/)
 - [中文网](http://react.html.cn/docs/hooks-faq.html)
 - [一文看懂 react hooks](https://juejin.im/post/5d985deae51d4577f9285c2f)
 - [React Hooks的几个问题](https://juejin.im/post/5d9c5f935188251e3a06bbbb#heading-2)
 - [React Hooks 你真的用对了吗？](https://juejin.im/post/5d9c5f935188251e3a06bbbb#heading-1)
+
+**2019.11.12**
+最近用到hooks，只是将class组件变成hooks写法，只是换了一种写法，没有实质性的优化。
+
+所以leader提出了这个问题，并且举证，git到了hooks的新用法。
+
+hooks 的动机（添加 Hook 的具体原因）：
+1. Hook 使你在无需修改组件结构的情况下复用状态逻辑。
+2. Hook 将组件中相互关联的部分拆分成更小的函数（比如设置订阅或请求数据），而并非强制按照生命周期划分。
+3. Hook 使你在非 class 的情况下可以使用更多的 React 特性。
+
+- [hooks新代码](https://frontarm.com/james-k-nelson/react-hooks-intuition/)
+
+
 
 **2019.10.15**
 
@@ -20,7 +35,9 @@
 随着React 16.8的发布，React Hooks已经发布！
 
 >Hooks增加了无需编写JavaScript类即可访问状态等功能的功能。Hooks承诺将大大简化React组件所需的代码，并且当前在React alpha版本中可用。
->React Hook让无狀态组件拥有了许多只有有狀态组件的能力，如自更新能力（setState，使用useState），访问ref（使用useRef或useImperativeMethods），
+
+>React Hook让无狀态组件拥有了许多只有有狀态组件的能力，如自更新能力（setState，使用useState），访问ref（使用useRef或useImperativeMethods）
+
 >访问context(使用useContext)，使用更高级的setState设置（useReducer），及进行类似生命周期的阶段性方法（useEffect或useLayoutEffect）。
 
 
@@ -59,26 +76,25 @@ function createRows(props) {
 }
 ```
 ### useEffect
->用useEffect函数来代替生命周期函数(componentDidMount,componentDidUpdate,componentWillUnmount)
+>可以将useEffect函数看做componentDidMount,componentDidUpdate,componentWillUnmount这三个生命周期函数的组合
 >类似于setState(state, cb)中的cb，总是在整个更新周期的最后才执行
 
-
-**useEffect两个注意点**
+**useEffect注意点**
 
 1. React首次渲染和之后的每次渲染都会调用一遍useEffect函数，而之前我们要用两个生命周期函数分别表示首次渲染(componentDidMount)和更新导致的重新渲染(componentDidUpdate)。
-2. useEffect中定义的函数的执行不会阻碍浏览器更新视图，也就是说这些函数时异步执行的，而componentDidMount和componentDidUpdate中的代码都是同步执行的。
+2. useEffect中定义的函数的执行不会阻碍浏览器更新视图，也就是说这些函数是异步执行的，而componentDidMount和componentDidUpdate中的代码都是同步执行的。
    个人认为这个有好处也有坏处吧，比如我们要根据页面的大小，然后绘制当前弹出窗口的大小，如果时异步的就不好操作了。
 3. useEffect 实现 componentWillUnmount生命周期函数
-4. useEffect的第二个参数：那到底要如何实现类似componentWillUnmount的效果那?
+4. useEffect的第二个参数：那到底要如何实现类似componentWillUnmount的效果呢?
    这就需要请出useEffect的第二个参数，它是一个数组，数组中可以写入很多状态对应的变量，意思是当状态值发生变化时，我们才进行解绑。
    但是当传空数组[]时，就是当组件将被销毁时才进行解绑，这也就实现了componentWillUnmount的生命周期函数
 5. 开发者通过 useEffect 的第二个参数告诉 React 用到了哪些外部变量
 ```js
  /**
-     * useEffect替代生命周期函数
+     * useEffect可以实现生命周期函数的功能
      * useEffect在react首次渲染和之后的每次渲染都会被调用，相当于首次渲染(componentDidMount)和更新导致的重新渲染(componentDidUpdate)
      * 通过返回一个函数的形式进行解绑，相当于(componentWillUnmount)
-        如果第二个参数不传，会渲染三次：（componentDidUpdate--componentWillUnmount--componentDidMount）
+        如果第二个参数不传，useEffect会渲染三次
         开发者通过 useEffect 的第二个参数告诉 React 用到了哪些外部变量
      */
 
@@ -109,8 +125,21 @@ useLayoutEffect(()=>{
     // ReducerCount.js:37 {current: input} "end useEffect"
     // ReducerCount.js:34 {current: input} "useEffect"
 ```
-
-
+----
+**20191113**
+### 使用 Effect Hook
+1. 可以把 useEffect Hook 看做 componentDidMount，componentDidUpdate 和 componentWillUnmount 这三个函数的组合。
+2. 无需清除的effect
+3. useEffect会在每次渲染后都执行,在第一次渲染之后和每次更新之后都会执行
+4. 需要清除的effect
+    
+    （1）为什么要在 effect 中返回一个函数？这是effect可选的清除机制。每个 effect 都可以返回一个清除函数。
+    （2）React 何时清除 effect？在组件卸载的时候执行清除操作。因为effect在每次渲染的时候都会执行，所以React会在执行当前effect之前对上一个effect进行清除。 
+ 
+5. useEffect可以在组件渲染后实现各种不同的副作用，有些副作用需要清除，所以要返回一个函数；有的副作用不必清除，所以不需要返回。
+6. effect可以像使用多个state 一样，使用多个effect
+   
+----
 
 #### createContext和useContext 让组件之间传值更简单
 详见`/components/TestDemo/HooksTodo`
