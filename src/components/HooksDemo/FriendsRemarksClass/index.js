@@ -1,8 +1,8 @@
 import React, {Component} from "react";
 import {getGroupsConversation, updateGroupsConversation} from "../Fetch";
-import {EditRemarks, RemarksFilter, SetRemarks} from "./index";
+import {EditRemarks, RemarksFilter, SetRemarks} from "../FriendsRemarksClass/indexUI";
 import {Button} from "antd";
-import './index.scss'
+import '../FriendsRemarksClass/index.scss'
 
 const remarksData = {
     0: {color: '#FFFFFF', name: '全部'},
@@ -14,7 +14,7 @@ const remarksData = {
 }
 
 
-export default class RemarksClass extends Component {
+export default class Index extends Component {
 
     constructor(props) {
         super(props)
@@ -23,8 +23,6 @@ export default class RemarksClass extends Component {
             remarksList: [],
             setStatus: false,
             selectType: '',//ALL: 全部移动到;ONE:单个设置
-
-
         }
     }
 
@@ -121,22 +119,19 @@ export default class RemarksClass extends Component {
             <Button onClick={() => {
                 this.setState({
                     editStatus: true
-                })
-            }
+                })}
             }>点击编辑</Button>
 
 
             <Button onClick={() => {
-                this.handleOneRemark(remarksList[1].id)
-            }
+                this.handleOneRemark(remarksList[1].id)}
             }>设置单人备注</Button>
 
             <Button onClick={() => {
                 this.setState({
                     setStatus: true,
                     selectType: 'ALL',
-                })
-            }
+                })}
             }>移动到</Button>
 
 

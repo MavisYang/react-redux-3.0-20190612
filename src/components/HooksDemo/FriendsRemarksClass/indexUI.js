@@ -3,7 +3,7 @@
  * @Date: 2019-11-18 13:58:02
  * @LastEditors: yangmiaomiao
  * @LastEditTime: 2019-11-21 16:36:41
- * @Description: 
+ * @Description:
  */
 import React, {useEffect, Fragment} from "react";
 import EditModalBox from "../../shareComponents/EditModalBox";
@@ -25,7 +25,7 @@ export function RemarksFilter(props) {
                                     handleFilter(item)
                                 }}>
                         {
-                            item.priority != 0 && item.select ? <em className='rf_circle_selected'></em> : null
+                            item.priority !== 0 && item.select ? <em className='rf_circle_selected'></em> : null
                         }
                         <span className='remarks_name'>{item.name !== '' ? item.name : item.placeholder}</span>
                     </div>
@@ -98,7 +98,7 @@ export function SetRemarks(props) {
                                     <em className={`${item.select ? 'sr_circle_selected' : 'sr_circle'}`}/>
                                     <span className={'remarks_circle remarks_circle_' + item.priority}
                                           style={{background: item.color}}/>
-                                    <span>{item.name !== '' ? item.name : item.placeholder}</span>
+                                    <span>{item.priority===0?'无': item.name !== '' ? item.name : item.placeholder}</span>
                                 </div>))
                         }
                     </Fragment>
@@ -113,7 +113,7 @@ export function SetRemarks(props) {
                                     <em className={`${item.oneSelect ? 'sr_circle_selected' : 'sr_circle'}`}/>
                                     <span className={'remarks_circle remarks_circle_' + item.priority}
                                           style={{background: item.color}}/>
-                                    <span>{item.name !== '' ? item.name : item.placeholder}</span>
+                                    <span>{item.priority===0?'无': item.name !== '' ? item.name : item.placeholder}</span>
                                 </div>))
                         }
                     </Fragment>

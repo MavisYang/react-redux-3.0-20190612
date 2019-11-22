@@ -269,7 +269,7 @@ static getDerivedStateFromProps(nextProps, prevState) {
 ## [生命周期](https://www.reactjscn.com/docs/react-component.html#static-getderivedstatefromprops)
 
 #### 同时应用getDerivedStateFromProps()和UNSAFE_componentWillMount，报错
->index.js:1375 Warning: Unsafe legacy lifecycles will not be called for components using new component APIs.
+>indexUI.js:1375 Warning: Unsafe legacy lifecycles will not be called for components using new component APIs.
 TheLifeCycle uses getDerivedStateFromProps() but also contains the following legacy lifecycles:
    UNSAFE_componentWillMount The above lifecycles should be removed.
 

@@ -18,9 +18,3 @@ export function useContactModal({defaultValue = {}} = {}) {
         }
     }
 }
-
-export function Modal({defaultStatus}) {
-    const [status, setStatus] = useState(false)
-
-
-}

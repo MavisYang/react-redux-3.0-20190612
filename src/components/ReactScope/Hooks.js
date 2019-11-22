@@ -1,4 +1,4 @@
-import {useRef, useState} from "react";
+import {useCallback, useEffect, useRef, useState} from "react";
 
 function useSequence(initialNext) {
     let nextRef = useRef(initialNext)
@@ -37,3 +37,58 @@ export function useContactModel({defaultValue = {}} = {}) {
         }
     }
 }
+
+
+export function useWinSize() {
+
+    const [size,setSize] = useState({
+        width:document.documentElement.clientWidth,
+        height:document.documentElement.clientHeight
+    })
+
+    const onResize = useCallback((node)=>{
+        setSize({
+            width:document.documentElement.clientWidth,
+            height:document.documentElement.clientHeight
+        })
+    },[])
+
+    useEffect(()=>{
+        window.addEventListener('resize',onResize)
+        return()=>{
+            window.removeEventListener('resize',onResize)
+        }
+    },[])
+
+
+    return size
+}
+
+const useUserInfo = (username = 'yuwanlin') => {
+    const fetchRef = useRef(null);
+    const [userInfo, setUserInfo] = useState({});
+    const handleData = data => {
+        setUserInfo(data);
+    };
+    useEffect(() => {
+        // const fetchData = username =>
+        //     fetch(`${prefix}${username}`)
+        //         .then(res => res.json())
+        //         .then(data => {
+        //             console.log('fetch success');
+        //             handleData(data);
+        //         });
+        // fetchRef.current = debounce(fetchData, 1000);
+
+        handleData();
+    }, []);
+
+    useEffect(
+        () => {
+            fetchRef.current(username);
+        },
+        [username]
+    );
+    // useDebugValue('use-user-info');
+    return userInfo;
+};

@@ -2,7 +2,8 @@
  * 自定义HOOKS函数
  * */
 
-import React, {useCallback, useEffect, useState} from "react";
+import React from "react";
+import {useWinSize} from '../../ReactScope/Hooks'
 
 export default function WinSizeUseHooks(){
     const size = useWinSize()
@@ -11,28 +12,3 @@ export default function WinSizeUseHooks(){
     )
 }
 
-function useWinSize() {
-
-    const [size,setSize] = useState({
-        width:document.documentElement.clientWidth,
-        height:document.documentElement.clientHeight
-    })
-
-    const onResize = useCallback((node)=>{
-        setSize({
-            width:document.documentElement.clientWidth,
-            height:document.documentElement.clientHeight
-        })
-    },[])
-
-    useEffect(()=>{
-        console.log()
-        window.addEventListener('resize',onResize)
-        return()=>{
-            window.removeEventListener('resize',onResize)
-        }
-    },[])
-
-
-    return size
-}

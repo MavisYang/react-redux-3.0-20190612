@@ -33,7 +33,7 @@ actions.js 引入 import * as types from './actionTypes.js'
 
 reducer.js  引入import {TODO_INIT, TODO_ADD} from '../actions/actionTypes.js'
 ```
-2. 编写actionCreators.js文件 `/actions/index.js`
+2. 编写actionCreators.js文件 `/actions/indexUI.js`
 
 
 **通过store.getState()获取存储store数据**
@@ -472,7 +472,7 @@ const [count,setCount] = useReducer((state,action)=>{
 1. useContext：可访问全局状态，避免一层层的传递状态。这符合Redux其中的一项规则，就是状态全局化，并能统一管理。
 2. useReducer：通过action的传递，更新复杂逻辑的状态，主要是可以实现类似Redux中的Reducer部分，实现业务逻辑的可行性。
 
-查看项目：`/HooksDemo/HooksTodo/ReducerContext/index.js`
+查看项目：`/HooksDemo/HooksTodo/ReducerContext/indexUI.js`
 
 ### useMemo优化React Hooks程序性能
 1. useMemo主要用来解决使用React hooks产生的无用渲染的性能问题。

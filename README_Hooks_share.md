@@ -365,7 +365,7 @@ function Image(props) {
 >reducer其实就是一个函数，这个函数接收两个参数，一个是状态，一个用来控制业务逻辑的判断参数。
 
 查看 :
-1.HOOks to do List `/HooksDemo/index.js`
+1.HOOks to do List `/HooksDemo/indexUI.js`
 2. `/HooksDemo/HooksTodo/ReducerCount.js`
 
 useReducer有三个参数(一般用到前两个)
