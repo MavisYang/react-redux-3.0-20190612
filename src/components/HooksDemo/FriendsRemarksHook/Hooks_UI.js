@@ -112,12 +112,12 @@ export function SetRemarks(props) {
 
 //备注筛选查询
 export function RemarksFilter(props) {
-    const [remarksList, handleSelect] = useRemarks(props.remarksList.map(v => (v.priority == 0 ? {...v, select: true} : {...v})))
+    const [remarksList, handleSelect] = useRemarks(props.remarksList)
     return (
         <div className='mm_remarks_filter'>
             筛选:
             {
-                remarksList.map(item => {
+                remarksList&&remarksList.map(item => {
                     return <div key={item.id}
                                 className={`remarks_circle ${'remarks_circle_' + item.priority} ${item.select ? 'remarks_circle_selected' : ''}`}
                                 style={{backgroundColor: item.color}}
@@ -140,12 +140,12 @@ export function RemarksFilter(props) {
 
 //自定义hooks
 function useRemarks(remarksList) {
-    const [list, setList] = useState(remarksList.filter(v => v.priority == 0).concat(remarksList.filter(v => v.priority !== 0)).map(v => ({
-        ...v,
-        color: remarksData[v.priority].color,
-        name: v.name == '' ? remarksData[v.priority].name : v.name,
-        select: v.select ? v.select : false
-    })))
+    const [list, setList] = useState([])
+
+    useEffect(()=>{
+        console.log('useEffect')
+        setList(remarksList)
+    },[remarksList])
 
 
     const handleSelect = (item) => {

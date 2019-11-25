@@ -1,6 +1,6 @@
 import React, {Component, useEffect, useReducer, useState} from "react";
 import {getGroupsConversation, updateGroupsConversation} from "../Fetch";
-import {EditRemarks, RemarksFilter, SetRemarks} from "./Hooks_UI";
+import {EditRemarks, RemarksFilter, SetRemarks} from "../FriendsRemarksClass/indexUI";
 import {Button} from "antd";
 import {RemarksReducer} from './Reducer'
 

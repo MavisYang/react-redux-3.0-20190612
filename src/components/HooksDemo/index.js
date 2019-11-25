@@ -5,7 +5,7 @@ import TodoList from "./TodoList";
 import InterScroll from './InterScroll'
 import FriendsRemarksHook from './FriendsRemarksHook'
 import FriendsRemarksClass from './FriendsRemarksClass'
-import CustomHooks from './CustomHooks'
+import CustomHooks from './FriendsRemarksHook/CustomHooks'
 import './index.scss'
 
 export default class HooksDemo extends Component{
