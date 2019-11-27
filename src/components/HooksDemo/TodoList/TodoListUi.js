@@ -1,6 +1,9 @@
 import React, {Fragment} from "react";
 import {Button, Input, List,Popconfirm} from "antd";
-
+// import 'antd/lib/button/style/css';
+// import 'antd/lib/input/style/css';
+// import 'antd/lib/list/style/css';
+// import 'antd/lib/popconfirm/style/css';
 //无状态组件，直接收传入的props值，不做逻辑处理
 //ui和逻辑分离
 const TodoListUi = (props) => {

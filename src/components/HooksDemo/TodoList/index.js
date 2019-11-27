@@ -93,18 +93,18 @@ export default class TodoList extends Component {
             <div className={'todo_list_containter'}>
                 <h3>todoList(Redux应用)</h3>
                 <TodoListUi todosReducer={todosReducer}
-                            inputValue={inputValue}
-                            onChange={this.onChange}
-                            onKeyUp={this.keyupHandle}
-                            addList={this.addList}
-                            onSearch={this.onSearch}
-                            searchOnchange={this.searchOnchange}
-                            deleteItem={this.deleteItem}
-                            editItem={editItem}
-                            handleEdit={this.handleEdit}
-                            confrimEdit={this.confrimEdit}
-                            editOnChange={this.editOnChange}
-                />
+                              inputValue={inputValue}
+                              onChange={this.onChange}
+                              onKeyUp={this.keyupHandle}
+                              addList={this.addList}
+                              onSearch={this.onSearch}
+                              searchOnchange={this.searchOnchange}
+                              deleteItem={this.deleteItem}
+                              editItem={editItem}
+                              handleEdit={this.handleEdit}
+                              confrimEdit={this.confrimEdit}
+                              editOnChange={this.editOnChange}
+            />
             </div>
 
         )

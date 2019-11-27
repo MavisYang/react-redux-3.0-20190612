@@ -1,11 +1,15 @@
-import {TODO_ADD, TODO_DELETE, TODO_EDIT, TODO_INIT, TODO_SEARCH} from "../actions/actionsTypes";
-
-const initialState={
+// import {TODO_ADD, TODO_DELETE, TODO_EDIT, TODO_INIT, TODO_SEARCH} from "../actions/actionsTypes";
+export const TODO_ADD = "todoReducer/TODO_ADD";
+export const TODO_DELETE = "todoReducer/TODO_DELETE";
+export const TODO_EDIT = "todoReducer/TODO_EDIT";
+export const TODO_INIT = "todoReducer/TODO_INIT";
+export const TODO_SEARCH = "todoReducer/TODO_SEARCH";
+export const initialState={
     todoList:[],
     initList:[]
 }
 
-export function TodoReducer(state=initialState,action){
+export default function TodoReducer(state=initialState,action){
     // console.log(action,'action')
     switch (action.type) {
         case TODO_INIT:
