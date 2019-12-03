@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import {Button,Input} from 'antd'
 import {useKeys,useContactModel} from './Hooks'
 import React_1120 from './React_1120'
+import React_1129 from './React_1129'
 export default function React_1114(props) {
 
     return(
@@ -15,6 +16,8 @@ export default function React_1114(props) {
 
             <ContactList/>
             {props.status?null:<React_1120/>}
+
+            <React_1129/>
         </div>
     )
 

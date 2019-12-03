@@ -1,7 +1,7 @@
 import React, {Fragment, useCallback, useEffect, useMemo, useReducer, useRef, useState} from "react";
 import {Button, Input} from "antd";
 import axios from 'axios'
-import {fetchDataAxios} from '../Fetch'
+import {fetchDataAxios,useFetch,useEventCallBack} from '../Fetch'
 export default function Share_11_01() {
     const [count, setCount] = useState(0)
 
@@ -158,11 +158,15 @@ function SearchResults() {
     const [data, setData] = useState([])
     const [data1, setData1] = useState([])
 
+    const fetch = useFetch('react')
+
+
     // const getFetchUrl = useCallback((query)=> {
     //     return 'https://hn.algolia.com/api/v1/search?query=' + query;
     // },[])
 
     useEffect(() => {
+
         // console.log(1)
         // async function fetchData() {
         //     const result = await axios(getFetchUrl('react'))
@@ -189,7 +193,7 @@ function SearchResults() {
             console.log(2)
             setData1(res.hits)
         })
-    }, [])
+    }, [fetch])
 
 
     return (
